@@ -13,48 +13,63 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\base">
+      <UniqueIdentifier>{ac2f7512-f6b8-44ab-ad1c-cbf8d9b4b241}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\base">
+      <UniqueIdentifier>{6961962d-fda1-4b43-863e-5e754aff7d23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\util">
+      <UniqueIdentifier>{ca7da476-050b-40a4-9ed8-b468ecb3d5f9}</UniqueIdentifier>
+    </Filter>
     <Filter Include="源文件\util">
-      <UniqueIdentifier>{38e60728-ca6f-4d5c-a5a0-5ebfbad76d46}</UniqueIdentifier>
+      <UniqueIdentifier>{aad6f2fe-bf63-4ee6-a599-a03821d85ac5}</UniqueIdentifier>
     </Filter>
     <Filter Include="源文件\subcommands">
-      <UniqueIdentifier>{2d3d9c5c-ce94-41a1-bf23-8136303c9d8e}</UniqueIdentifier>
+      <UniqueIdentifier>{2477f672-4593-431e-8f19-47f90aee7696}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\subcommands">
+      <UniqueIdentifier>{704fb0e5-0b05-4efa-9a46-6d3caba3710a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\gplus.cpp">
-      <Filter>源文件</Filter>
+    <ClInclude Include="base\gplus.h">
+      <Filter>头文件\base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\subcommand.h">
+      <Filter>头文件\base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\subcommand_list.h">
+      <Filter>头文件\base</Filter>
+    </ClInclude>
+    <ClInclude Include="subcommands\help_subcommand.h">
+      <Filter>头文件\subcommands</Filter>
+    </ClInclude>
+    <ClInclude Include="subcommands\profile_subcommand.h">
+      <Filter>头文件\subcommands</Filter>
+    </ClInclude>
+    <ClInclude Include="util\executable_path.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="base\gplus.cpp">
+      <Filter>源文件\base</Filter>
     </ClCompile>
-    <ClCompile Include="src\subcommand_list.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="base\subcommand_list.cpp">
+      <Filter>源文件\base</Filter>
     </ClCompile>
-    <ClCompile Include="src\subcommands\help_subcommand.cpp">
+    <ClCompile Include="subcommands\help_subcommand.cpp">
       <Filter>源文件\subcommands</Filter>
     </ClCompile>
-    <ClCompile Include="src\subcommands\profile_subcommand.cpp">
+    <ClCompile Include="subcommands\profile_subcommand.cpp">
       <Filter>源文件\subcommands</Filter>
     </ClCompile>
-    <ClCompile Include="src\util\executable_path.cpp">
+    <ClCompile Include="util\executable_path.cpp">
       <Filter>源文件\util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\gplus.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\subcommand.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\subcommand_list.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\subcommands\help_subcommand.h">
-      <Filter>源文件\subcommands</Filter>
-    </ClInclude>
-    <ClInclude Include="src\subcommands\profile_subcommand.h">
-      <Filter>源文件\subcommands</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\executable_path.h">
-      <Filter>源文件\util</Filter>
-    </ClInclude>
+    <None Include="README.md" />
   </ItemGroup>
 </Project>

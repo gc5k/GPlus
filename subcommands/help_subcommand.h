@@ -9,7 +9,7 @@
 #ifndef GPLUS_SUBCOMMANDS_HELP_SUBCOMMAND_H_
 #define GPLUS_SUBCOMMANDS_HELP_SUBCOMMAND_H_
 
-#include "subcommand.h"
+#include "base/subcommand.h"
 
 namespace gplus {
   

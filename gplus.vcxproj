@@ -18,6 +18,24 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="base\gplus.h" />
+    <ClInclude Include="base\subcommand.h" />
+    <ClInclude Include="base\subcommand_list.h" />
+    <ClInclude Include="subcommands\help_subcommand.h" />
+    <ClInclude Include="subcommands\profile_subcommand.h" />
+    <ClInclude Include="util\executable_path.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="base\gplus.cpp" />
+    <ClCompile Include="base\subcommand_list.cpp" />
+    <ClCompile Include="subcommands\help_subcommand.cpp" />
+    <ClCompile Include="subcommands\profile_subcommand.cpp" />
+    <ClCompile Include="util\executable_path.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{4FBAB544-E87F-443D-84B0-C3A88F929DE1}</ProjectGuid>
@@ -76,13 +94,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;src\third_party;src\third_party\crashpad;src\third_party\crashpad\third_party\mini_chromium\mini_chromium;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)third_party\;$(ProjectDir)third_party\crashpad\;$(ProjectDir)third_party\crashpad\third_party\mini_chromium\mini_chromium\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp14</LanguageStandard>
       <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UndefinePreprocessorDefinitions>min;max;%(UndefinePreprocessorDefinitions)</UndefinePreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>lib\win;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(BOOST_1_67_0_LIB_DIR);lib\win;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>base.lib;crashpad_client.lib;crashpad_util.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
@@ -93,13 +111,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;src\third_party;src\third_party\crashpad;src\third_party\crashpad\third_party\mini_chromium\mini_chromium;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)third_party\;$(ProjectDir)third_party\crashpad\;$(ProjectDir)third_party\crashpad\third_party\mini_chromium\mini_chromium\;$(BOOST_1_67_0_LIB_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp14</LanguageStandard>
       <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UndefinePreprocessorDefinitions>min;max;%(UndefinePreprocessorDefinitions)</UndefinePreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>lib\win;lib\win\crashpad\Debug_x64\lib_MD;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(BOOST_1_67_0_LIB_DIR);lib\win;lib\win\crashpad\Debug_x64\lib_MD;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>base.lib;crashpad_client.lib;crashpad_util.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
@@ -112,7 +130,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;src\third_party;src\third_party\crashpad;src\third_party\crashpad\third_party\mini_chromium\mini_chromium;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)third_party\;$(ProjectDir)third_party\crashpad\;$(ProjectDir)third_party\crashpad\third_party\mini_chromium\mini_chromium\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp14</LanguageStandard>
       <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UndefinePreprocessorDefinitions>min;max;%(UndefinePreprocessorDefinitions)</UndefinePreprocessorDefinitions>
@@ -120,7 +138,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>lib\win;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(BOOST_1_67_0_LIB_DIR);lib\win;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>base.lib;crashpad_client.lib;crashpad_util.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
@@ -133,7 +151,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;src\third_party;src\third_party\crashpad;src\third_party\crashpad\third_party\mini_chromium\mini_chromium;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)third_party\;$(ProjectDir)third_party\crashpad\;$(ProjectDir)third_party\crashpad\third_party\mini_chromium\mini_chromium\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp14</LanguageStandard>
       <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UndefinePreprocessorDefinitions>min;max;%(UndefinePreprocessorDefinitions)</UndefinePreprocessorDefinitions>
@@ -142,26 +160,11 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>lib\win;lib\win\crashpad\Release_x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(BOOST_1_67_0_LIB_DIR);lib\win;lib\win\crashpad\Release_x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>base.lib;crashpad_client.lib;crashpad_util.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="src\gplus.cpp" />
-    <ClCompile Include="src\subcommands\help_subcommand.cpp" />
-    <ClCompile Include="src\subcommands\profile_subcommand.cpp" />
-    <ClCompile Include="src\subcommand_list.cpp" />
-    <ClCompile Include="src\util\executable_path.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\gplus.h" />
-    <ClInclude Include="src\subcommand.h" />
-    <ClInclude Include="src\subcommands\help_subcommand.h" />
-    <ClInclude Include="src\subcommands\profile_subcommand.h" />
-    <ClInclude Include="src\subcommand_list.h" />
-    <ClInclude Include="src\util\executable_path.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

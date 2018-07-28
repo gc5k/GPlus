@@ -11,8 +11,8 @@
 #include <iostream>
 #include <sstream>
 
-#include "gplus.h"
-#include "subcommand_list.h"
+#include "base/gplus.h"
+#include "base/subcommand_list.h"
 
 using namespace std;
 namespace po = boost::program_options;
