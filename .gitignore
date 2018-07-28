@@ -1,0 +1,8 @@
+gplus.xcodeproj/project.xcworkspace/xcuserdata
+gplus.xcodeproj/xcuserdata
+gplus.log
+x64
+*~
+.vs
+*.vcxproj.user
+lib/win/libboost*
