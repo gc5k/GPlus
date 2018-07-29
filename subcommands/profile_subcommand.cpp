@@ -28,4 +28,4 @@ po::options_description ProfileSubcommand::GetAllOptionsDescription() const {
 void ProfileSubcommand::Execute() {
 }
   
-}
+}  // namespace gplus

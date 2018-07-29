@@ -22,6 +22,6 @@ typedef program_options::positional_options_description PositionalOptionsDesc;
 
 program_options::variables_map& GetProgramArguments();
 
-}
+}  // namespace gplus
 
 #endif  // GPLUS_BASE_GPLUS_H_

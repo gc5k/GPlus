@@ -56,4 +56,4 @@ string GetExecutablePath() {
 #else  // Linux
 // TODO(Zhixiang Zhu): Linux
 #endif
-}
+}  // namespace gplus

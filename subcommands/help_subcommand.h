@@ -34,6 +34,6 @@ class HelpSubcommand : public Subcommand {
   void Execute();
 };
   
-}
+}  // namespace gplus
 
 #endif /* GPLUS_SUBCOMMANDS_HELP_SUBCOMMAND_H_ */

@@ -101,4 +101,4 @@ void HelpSubcommand::Execute() {
   }
 }
   
-}
+}  // namespace gplus

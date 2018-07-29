@@ -42,4 +42,4 @@ Subcommand * FindSubcommand(const char * name_or_alias) {
   return nullptr;
 }
 
-}
+}  // namespace gplus
