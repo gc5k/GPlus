@@ -8,7 +8,9 @@
 
 #include "subcommands/profile_subcommand.h"
 
-using namespace std;
+#include <string>
+
+using std::string;
 namespace po = boost::program_options;
 
 namespace gplus {

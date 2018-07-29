@@ -9,15 +9,17 @@
 //  of the gplus executable file. The implementation is mainly copied from
 //  https://github.com/mirror/boost/blob/master/libs/log/src/process_name.cpp
 
+#include "util/executable_path.h"
+
 #include <climits>  // PATH_MAX
 #include <string>
-#include <boost/filesystem/path.hpp>
-
-using namespace std;
+#include "third_party/boost/filesystem/path.hpp"
 
 namespace gplus {
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32)
 #include <Windows.h>
+
+using std::wstring;
 
 wstring GetExecutablePath() {
   wstring buf;
@@ -37,6 +39,8 @@ wstring GetExecutablePath() {
 }
 #elif defined(macintosh) || defined(__APPLE__) || defined(__APPLE_CC__)
 #include <mach-o/dyld.h>
+
+using std::string;
 
 string GetExecutablePath() {
   string buf;

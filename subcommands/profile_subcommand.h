@@ -34,4 +34,4 @@ class ProfileSubcommand : public Subcommand {
 
 }  // namespace gplus
 
-#endif /* GPLUS_SUBCOMMANDS_PROFILE_SUBCOMMAND_H_ */
+#endif  // GPLUS_SUBCOMMANDS_PROFILE_SUBCOMMAND_H_

@@ -9,6 +9,7 @@
 #ifndef GPLUS_SUBCOMMANDS_HELP_SUBCOMMAND_H_
 #define GPLUS_SUBCOMMANDS_HELP_SUBCOMMAND_H_
 
+#include <string>
 #include "base/subcommand.h"
 
 namespace gplus {
@@ -36,4 +37,4 @@ class HelpSubcommand : public Subcommand {
 
 }  // namespace gplus
 
-#endif /* GPLUS_SUBCOMMANDS_HELP_SUBCOMMAND_H_ */
+#endif  // GPLUS_SUBCOMMANDS_HELP_SUBCOMMAND_H_

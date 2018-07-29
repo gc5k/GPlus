@@ -5,6 +5,7 @@
 //  Created by Zhixiang Zhu on 25/06/2018.
 //  Copyright © 2018 Guobo Chen. All rights reserved.
 //
+#include "base/subcommand_list.h"
 
 #include <cstring>
 #include "base/subcommand.h"

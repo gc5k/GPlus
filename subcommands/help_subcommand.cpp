@@ -14,23 +14,23 @@
 #include "base/gplus.h"
 #include "base/subcommand_list.h"
 
-using namespace std;
+using std::cout;
+using std::cerr;
+using std::endl;
 namespace po = boost::program_options;
 
 namespace gplus {
 
-string HelpSubcommand::GetLongDescription() const {
-  stringstream ss;
-  ss
-  << "Describe the usage of this program or its subcommands." << endl
-  << "Usage: " << kArgv0 << " help [subcommand]";
+std::string HelpSubcommand::GetLongDescription() const {
+  std::stringstream ss;
+  ss << "Describe the usage of this program or its subcommands." << endl
+     << "Usage: " << kArgv0 << " help [subcommand]";
   return ss.str();
 }
 
 po::options_description HelpSubcommand::GetAllOptionsDescription() const {
   po::options_description desc;
-  desc.add_options()
-  ("subcmd", po::value<string>(), "subcommand name");
+  desc.add_options()("subcmd", po::value<std::string>(), "subcommand name");
   return desc;
 }
 
@@ -40,15 +40,14 @@ void HelpSubcommand::AddPositionalOptionsDescription(
 }
 
 static void PrintSubcommand(const Subcommand * subcmd) {
-  stringstream name_stream;
+  std::stringstream name_stream;
   name_stream << subcmd->GetName();
 
   // Print aliases
   int alias_cnt;
   auto aliases = subcmd->GetAliases(&alias_cnt);
   if (alias_cnt > 0) {
-    name_stream << " (";
-    name_stream << aliases[0];
+    name_stream << " (" << aliases[0];
     for (int j = 1; j < alias_cnt; ++j) {
       name_stream << ", " << aliases[j];
     }
@@ -64,7 +63,7 @@ static void PrintSubcommand(const Subcommand * subcmd) {
     cout << " ";
   }
 
-  cout << subcmd->GetDescription() << endl;
+  cout << subcmd->GetDescription() << std::endl;
 }
 
 static void PrintSubcommandList() {
@@ -79,15 +78,14 @@ void HelpSubcommand::Execute() {
   auto & prog_args = GetProgramArguments();
   if (prog_args.count("subcmd")) {
     // Pring help message of the subcommand.
-    auto subcmd_name = prog_args["subcmd"].as<string>();
+    auto subcmd_name = prog_args["subcmd"].as<std::string>();
     auto subcmd = FindSubcommand(subcmd_name.c_str());
     if (subcmd == nullptr) {
       cerr << "Cannot find subcommand named '" << subcmd_name << "'." << endl;
     } else {
-      cout
-      << subcmd->GetLongDescription() << endl
-      << endl
-      << subcmd->GetVisibleOptionsDescription() << endl;
+      cout << subcmd->GetLongDescription() << endl
+           << endl
+           << subcmd->GetVisibleOptionsDescription() << endl;
     }
   } else {
     // Show all subcommands.

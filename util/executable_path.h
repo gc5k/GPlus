@@ -1,3 +1,5 @@
+//  Copyright © 2018 Guobo Chen. All rights reserved.
+
 #ifndef GPLUS_UTIL_EXECUTABLE_PATH_H_
 #define GPLUS_UTIL_EXECUTABLE_PATH_H_
 
@@ -13,4 +15,4 @@ std::string GetExecutablePath();
 
 }
 
-#endif  /* GPLUS_UTIL_EXECUTABLE_PATH_H_ */
+#endif  // GPLUS_UTIL_EXECUTABLE_PATH_H_

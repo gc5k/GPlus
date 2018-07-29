@@ -6,8 +6,8 @@
 //  Copyright © 2018 Guobo Chen. All rights reserved.
 //
 
-#ifndef GPLUS_SUBCOMMAND_LIST_H_
-#define GPLUS_SUBCOMMAND_LIST_H_
+#ifndef GPLUS_BASE_SUBCOMMAND_LIST_H_
+#define GPLUS_BASE_SUBCOMMAND_LIST_H_
 
 #include "base/subcommand.h"
 
@@ -19,4 +19,4 @@ Subcommand * FindSubcommand(const char * name_or_alias);
 
 }
 
-#endif /* GPLUS_SUBCOMMAND_LIST_H_ */
+#endif  // GPLUS_BASE_SUBCOMMAND_LIST_H_
