@@ -21,7 +21,7 @@ Subcommand * const * GetSubcommandList(int * p_subcmd_cnt) {
   *p_subcmd_cnt = sizeof(subcommand_list) / sizeof(Subcommand *);
   return subcommand_list;
 }
-  
+
 Subcommand * FindSubcommand(const char * name_or_alias) {
   int subcmd_cnt;
   auto subcmd_list = GetSubcommandList(&subcmd_cnt);

@@ -12,7 +12,7 @@ using namespace std;
 namespace po = boost::program_options;
 
 namespace gplus {
-  
+
 po::options_description ProfileSubcommand::GetAllOptionsDescription() const {
   po::options_description desc;
   desc.add_options()
@@ -24,8 +24,8 @@ po::options_description ProfileSubcommand::GetAllOptionsDescription() const {
    "filename (no ext) of the output files");
   return desc;
 }
-  
+
 void ProfileSubcommand::Execute() {
 }
-  
+
 }  // namespace gplus

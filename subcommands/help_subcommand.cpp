@@ -18,7 +18,7 @@ using namespace std;
 namespace po = boost::program_options;
 
 namespace gplus {
-  
+
 string HelpSubcommand::GetLongDescription() const {
   stringstream ss;
   ss
@@ -26,23 +26,23 @@ string HelpSubcommand::GetLongDescription() const {
   << "Usage: " << kArgv0 << " help [subcommand]";
   return ss.str();
 }
-  
+
 po::options_description HelpSubcommand::GetAllOptionsDescription() const {
   po::options_description desc;
   desc.add_options()
   ("subcmd", po::value<string>(), "subcommand name");
   return desc;
 }
-  
+
 void HelpSubcommand::AddPositionalOptionsDescription(
     PositionalOptionsDesc* pd) {
   pd->add("subcmd", 1);
 }
-  
+
 static void PrintSubcommand(const Subcommand * subcmd) {
   stringstream name_stream;
   name_stream << subcmd->GetName();
-  
+
   // Print aliases
   int alias_cnt;
   auto aliases = subcmd->GetAliases(&alias_cnt);
@@ -54,19 +54,19 @@ static void PrintSubcommand(const Subcommand * subcmd) {
     }
     name_stream << ")";
   }
-  
+
   const auto name = name_stream.str();
   cout << name;
-  
+
   // Print spaces between name (aliases) and description.
   const int kNameWidth = 40;
   for (size_t j = name.length(); j < kNameWidth; ++j) {
     cout << " ";
   }
-  
+
   cout << subcmd->GetDescription() << endl;
 }
-  
+
 static void PrintSubcommandList() {
   int subcmd_cnt;
   auto subcmd_list = GetSubcommandList(&subcmd_cnt);
@@ -74,7 +74,7 @@ static void PrintSubcommandList() {
     PrintSubcommand(subcmd_list[i]);
   }
 }
-  
+
 void HelpSubcommand::Execute() {
   auto & prog_args = GetProgramArguments();
   if (prog_args.count("subcmd")) {
@@ -100,5 +100,5 @@ void HelpSubcommand::Execute() {
     PrintSubcommandList();
   }
 }
-  
+
 }  // namespace gplus

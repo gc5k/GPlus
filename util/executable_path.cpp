@@ -9,7 +9,7 @@
 //  of the gplus executable file. The implementation is mainly copied from
 //  https://github.com/mirror/boost/blob/master/libs/log/src/process_name.cpp
 
-#include <climits> // PATH_MAX
+#include <climits>  // PATH_MAX
 #include <string>
 #include <boost/filesystem/path.hpp>
 
@@ -41,11 +41,9 @@ wstring GetExecutablePath() {
 string GetExecutablePath() {
   string buf;
   buf.resize(PATH_MAX);
-  while (true)
-  {
+  while (true) {
     uint32_t size = static_cast<uint32_t>(buf.size());
-    if (_NSGetExecutablePath(&buf[0], &size) == 0)
-    {
+    if (_NSGetExecutablePath(&buf[0], &size) == 0) {
       buf.resize(strlen(&buf[0]));
       break;
     }
