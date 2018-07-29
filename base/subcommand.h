@@ -12,13 +12,8 @@
 #include <string>
 
 #include "base/gplus.h"
-#include "third_party/boost/program_options/options_description.hpp"
-#include "third_party/boost/program_options/positional_options.hpp"
 
 namespace gplus {
-
-typedef program_options::options_description OptionsDesc;
-typedef program_options::positional_options_description PositionalOptionsDesc;
 
 class Subcommand {
  public:
@@ -45,7 +40,7 @@ class Subcommand {
     return GetAllOptionsDescription();
   }
 
-  virtual void AddPositionalOptionsDescription(PositionalOptionsDesc& pd) {}
+  virtual void AddPositionalOptionsDescription(PositionalOptionsDesc* pd) {}
 
   virtual void Execute() = 0;
 };

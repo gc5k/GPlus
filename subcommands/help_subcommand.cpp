@@ -35,8 +35,8 @@ po::options_description HelpSubcommand::GetAllOptionsDescription() const {
 }
   
 void HelpSubcommand::AddPositionalOptionsDescription(
-    po::positional_options_description &pd) {
-  pd.add("subcmd", 1);
+    PositionalOptionsDesc* pd) {
+  pd->add("subcmd", 1);
 }
   
 static void PrintSubcommand(const Subcommand * subcmd) {

@@ -29,8 +29,7 @@ class HelpSubcommand : public Subcommand {
     return desc;
   }
   
-  void AddPositionalOptionsDescription(
-      boost::program_options::positional_options_description &pd);
+  void AddPositionalOptionsDescription(PositionalOptionsDesc* pd);
 
   void Execute();
 };

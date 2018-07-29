@@ -150,8 +150,8 @@ int main(int argc, const char* argv[]) {
   std::unique_ptr<const char * []> subcmd_argv(new const char * [argc - 1]);
   std::copy(argv + 1, argv + argc, subcmd_argv.get());
   po::options_description opt_desc = subcmd->GetAllOptionsDescription();
-  po::positional_options_description pd;
-  subcmd->AddPositionalOptionsDescription(pd);
+  gplus::PositionalOptionsDesc pd;
+  subcmd->AddPositionalOptionsDescription(&pd);
   auto parser = po::command_line_parser(argc - 1, subcmd_argv.get());
   auto parsed_options = parser.options(opt_desc).positional(pd).run();
   auto & prog_args = gplus::GetProgramArguments();
