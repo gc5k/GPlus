@@ -9,6 +9,7 @@
 #include "subcommands/profile_subcommand.h"
 
 #include <string>
+#include "data/score_file.h"
 
 using std::string;
 namespace po = boost::program_options;
@@ -28,6 +29,7 @@ po::options_description ProfileSubcommand::GetAllOptionsDescription() const {
 }
 
 void ProfileSubcommand::Execute() {
+  auto score_file = data::ScoreFile::ReadScoreFile();
 }
 
 }  // namespace gplus

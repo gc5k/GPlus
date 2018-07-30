@@ -1,72 +1,71 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="源文件">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="头文件">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="资源文件">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="头文件\base">
-      <UniqueIdentifier>{ac2f7512-f6b8-44ab-ad1c-cbf8d9b4b241}</UniqueIdentifier>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="源文件\base">
+    <Filter Include="Sources\base">
       <UniqueIdentifier>{6961962d-fda1-4b43-863e-5e754aff7d23}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\util">
-      <UniqueIdentifier>{ca7da476-050b-40a4-9ed8-b468ecb3d5f9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\util">
+    <Filter Include="Sources\util">
       <UniqueIdentifier>{aad6f2fe-bf63-4ee6-a599-a03821d85ac5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\subcommands">
+    <Filter Include="Sources\subcommands">
       <UniqueIdentifier>{2477f672-4593-431e-8f19-47f90aee7696}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\subcommands">
-      <UniqueIdentifier>{704fb0e5-0b05-4efa-9a46-6d3caba3710a}</UniqueIdentifier>
+    <Filter Include="Sources\data">
+      <UniqueIdentifier>{81d2d871-f914-4a28-9309-5e9cc40c4c1d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base\gplus.h">
-      <Filter>头文件\base</Filter>
+      <Filter>Sources\base</Filter>
     </ClInclude>
     <ClInclude Include="base\subcommand.h">
-      <Filter>头文件\base</Filter>
+      <Filter>Sources\base</Filter>
     </ClInclude>
     <ClInclude Include="base\subcommand_list.h">
-      <Filter>头文件\base</Filter>
+      <Filter>Sources\base</Filter>
+    </ClInclude>
+    <ClInclude Include="data\score_file.h">
+      <Filter>Sources\data</Filter>
     </ClInclude>
     <ClInclude Include="subcommands\help_subcommand.h">
-      <Filter>头文件\subcommands</Filter>
+      <Filter>Sources\subcommands</Filter>
     </ClInclude>
     <ClInclude Include="subcommands\profile_subcommand.h">
-      <Filter>头文件\subcommands</Filter>
+      <Filter>Sources\subcommands</Filter>
     </ClInclude>
     <ClInclude Include="util\executable_path.h">
-      <Filter>头文件\util</Filter>
+      <Filter>Sources\util</Filter>
+    </ClInclude>
+    <ClInclude Include="base\exception.h">
+      <Filter>Sources\base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="base\gplus.cpp">
-      <Filter>源文件\base</Filter>
+      <Filter>Sources\base</Filter>
     </ClCompile>
     <ClCompile Include="base\subcommand_list.cpp">
-      <Filter>源文件\base</Filter>
+      <Filter>Sources\base</Filter>
     </ClCompile>
     <ClCompile Include="subcommands\help_subcommand.cpp">
-      <Filter>源文件\subcommands</Filter>
+      <Filter>Sources\subcommands</Filter>
     </ClCompile>
     <ClCompile Include="subcommands\profile_subcommand.cpp">
-      <Filter>源文件\subcommands</Filter>
+      <Filter>Sources\subcommands</Filter>
     </ClCompile>
     <ClCompile Include="util\executable_path.cpp">
-      <Filter>源文件\util</Filter>
+      <Filter>Sources\util</Filter>
+    </ClCompile>
+    <ClCompile Include="data\score_file.cpp">
+      <Filter>Sources\data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

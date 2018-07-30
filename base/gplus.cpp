@@ -6,6 +6,7 @@
 //  Copyright © 2018 Guobo Chen. All rights reserved.
 //
 #include "base/gplus.h"
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <algorithm>
@@ -14,6 +15,9 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include "base/exception.h"
+#include "base/subcommand_list.h"
+#include "util/executable_path.h"
 #include "third_party/boost/log/trivial.hpp"
 #include "third_party/boost/log/utility/setup/common_attributes.hpp"
 #include "third_party/boost/log/utility/setup/console.hpp"
@@ -22,8 +26,6 @@
 #include "third_party/crashpad/client/crashpad_client.h"
 #include "third_party/crashpad/client/crash_report_database.h"
 #include "third_party/crashpad/client/settings.h"
-#include "base/subcommand_list.h"
-#include "util/executable_path.h"
 
 namespace po = boost::program_options;
 namespace logging = boost::log;
@@ -147,7 +149,7 @@ int main(int argc, const char* argv[]) {
     return 1;
   }
   // Parse and store the command-line arguments.
-  std::unique_ptr<const char * []> subcmd_argv(new const char * [argc - 1]);
+  std::unique_ptr<const char *[]> subcmd_argv(new const char *[argc - 1]);
   std::copy(argv + 1, argv + argc, subcmd_argv.get());
   po::options_description opt_desc = subcmd->GetAllOptionsDescription();
   gplus::PositionalOptionsDesc pd;
@@ -158,7 +160,11 @@ int main(int argc, const char* argv[]) {
   po::store(parsed_options, prog_args);
   po::notify(prog_args);
 
-  subcmd->Execute();
+  try {
+    subcmd->Execute();
+  } catch (const gplus::Exception& e) {
+    BOOST_LOG_TRIVIAL(error) << e.GetExceptionMessage() << std::endl;
+  }
 
   return 0;
 }
