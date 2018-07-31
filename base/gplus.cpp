@@ -143,12 +143,13 @@ int main(int argc, const char* argv[]) {
   // Parse and store the command-line arguments.
   std::unique_ptr<const char *[]> subcmd_argv(new const char *[argc - 1]);
   std::copy(argv + 1, argv + argc, subcmd_argv.get());
-  po::options_description opt_desc = subcmd->GetAllOptionsDescription();
+  po::options_description opts_desc;
+  subcmd->AddOptionsDesc(&opts_desc);
   gplus::PositionalOptionsDesc pd;
-  subcmd->AddPositionalOptionsDescription(&pd);
+  subcmd->AddPositionalOptionsDesc(&pd);
   auto parser = po::command_line_parser(argc - 1, subcmd_argv.get());
-  auto parsed_options = parser.options(opt_desc).positional(pd).run();
-  auto & prog_args = gplus::GetSpecifiedOptions();
+  auto parsed_options = parser.options(opts_desc).positional(pd).run();
+  auto& prog_args = gplus::GetSpecifiedOptions();
   po::store(parsed_options, prog_args);
   po::notify(prog_args);
 

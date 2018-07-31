@@ -28,14 +28,12 @@ std::string HelpSubcommand::GetLongDescription() const {
   return ss.str();
 }
 
-po::options_description HelpSubcommand::GetAllOptionsDescription() const {
-  po::options_description desc;
-  desc.add_options()("subcmd", po::value<std::string>(), "subcommand name");
-  return desc;
+void HelpSubcommand::AddOptionsDesc(OptionsDesc* opts_desc) const {
+  opts_desc->add_options()
+  ("subcmd", po::value<std::string>(), "subcommand name");
 }
 
-void HelpSubcommand::AddPositionalOptionsDescription(
-    PositionalOptionsDesc* pd) {
+void HelpSubcommand::AddPositionalOptionsDesc(PositionalOptionsDesc* pd) {
   pd->add("subcmd", 1);
 }
 
@@ -83,9 +81,11 @@ void HelpSubcommand::Execute() {
     if (subcmd == nullptr) {
       cerr << "Cannot find subcommand named '" << subcmd_name << "'." << endl;
     } else {
+      OptionsDesc opts_desc;
+      subcmd->AddVisibleOptionsDesc(&opts_desc);
       cout << subcmd->GetLongDescription() << endl
            << endl
-           << subcmd->GetVisibleOptionsDescription() << endl;
+           << opts_desc << endl;
     }
   } else {
     // Show all subcommands.

@@ -15,21 +15,21 @@ namespace gplus {
 
 class ProfileSubcommand : public Subcommand {
  public:
-  const char * GetName() const { return "profile"; }
+  const char* GetName() const override { return "profile"; }
 
-  const char ** GetAliases(int * aliases_cnt) const {
+  const char** GetAliases(int * aliases_cnt) const override {
     static const char * aliases[] = { "prof" };
     *aliases_cnt = sizeof(aliases) / sizeof(aliases[0]);
     return aliases;
   }
 
-  const char * GetDescription() const {
+  const char* GetDescription() const override {
     return "Calculate the risk profile scores";
   }
 
-  boost::program_options::options_description GetAllOptionsDescription() const;
+  void AddOptionsDesc(OptionsDesc* opts_desc) const override;
 
-  void Execute();
+  void Execute() override;
 };
 
 }  // namespace gplus

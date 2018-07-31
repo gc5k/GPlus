@@ -16,23 +16,21 @@ namespace gplus {
 
 class HelpSubcommand : public Subcommand {
  public:
-  const char * GetName() const { return "help"; }
+  const char* GetName() const override { return "help"; }
 
-  const char * GetDescription() const { return "Print help information"; }
-
-  std::string GetLongDescription() const;
-
-  boost::program_options::options_description GetAllOptionsDescription() const;
-
-  boost::program_options::options_description
-  GetVisibleOptionsDescription() const {
-    boost::program_options::options_description desc;
-    return desc;
+  const char* GetDescription() const override {
+    return "Print help information";
   }
 
-  void AddPositionalOptionsDescription(PositionalOptionsDesc* pd);
+  std::string GetLongDescription() const override;
 
-  void Execute();
+  void AddOptionsDesc(OptionsDesc* opts_desc) const override;
+
+  void AddVisibleOptionsDesc(OptionsDesc* opts_desc) const override {}
+
+  void AddPositionalOptionsDesc(PositionalOptionsDesc* pd) override;
+
+  void Execute() override;
 };
 
 }  // namespace gplus

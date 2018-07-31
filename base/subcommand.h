@@ -30,17 +30,17 @@ class Subcommand {
     return this->GetDescription();
   }
 
-  // Gets the program options description that is
+  // Adds descriptions of all the program options which are
   // used by the command-line parser.
-  virtual OptionsDesc GetAllOptionsDescription() const = 0;
+  virtual void AddOptionsDesc(OptionsDesc* opts_desc) const = 0;
 
-  // Gets the program options description that is
+  // Adds descriptions of the program options which are shown
   // shown in the help message.
-  virtual OptionsDesc GetVisibleOptionsDescription() const {
-    return GetAllOptionsDescription();
+  virtual void AddVisibleOptionsDesc(OptionsDesc* opts_desc) const {
+    return AddOptionsDesc(opts_desc);
   }
 
-  virtual void AddPositionalOptionsDescription(PositionalOptionsDesc* pd) {}
+  virtual void AddPositionalOptionsDesc(PositionalOptionsDesc* pd) {}
 
   virtual void Execute() = 0;
 };

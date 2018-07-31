@@ -16,16 +16,14 @@ namespace po = boost::program_options;
 
 namespace gplus {
 
-po::options_description ProfileSubcommand::GetAllOptionsDescription() const {
-  po::options_description desc;
-  desc.add_options()
+void ProfileSubcommand::AddOptionsDesc(OptionsDesc* opts_desc) const {
+  opts_desc->add_options()
   ("file,f", po::value<string>(),
    "filename (no ext) of the plink format input data")
   ("score,s", po::value<string>(), "score file")
   ("keep-atgc", "take palindromic loci into account")
   ("out,o", po::value<string>(),
    "filename (no ext) of the output files");
-  return desc;
 }
 
 void ProfileSubcommand::Execute() {
