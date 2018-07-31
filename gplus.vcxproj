@@ -20,13 +20,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base\exception.h" />
-    <ClInclude Include="base\gplus.h" />
     <ClInclude Include="base\subcommand.h" />
     <ClInclude Include="base\subcommand_list.h" />
     <ClInclude Include="data\score_file.h" />
     <ClInclude Include="subcommands\help_subcommand.h" />
     <ClInclude Include="subcommands\profile_subcommand.h" />
     <ClInclude Include="util\executable_path.h" />
+    <ClInclude Include="util\program_options.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="base\gplus.cpp" />
@@ -35,6 +35,7 @@
     <ClCompile Include="subcommands\help_subcommand.cpp" />
     <ClCompile Include="subcommands\profile_subcommand.cpp" />
     <ClCompile Include="util\executable_path.cpp" />
+    <ClCompile Include="util\program_options.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />

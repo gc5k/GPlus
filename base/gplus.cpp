@@ -5,8 +5,6 @@
 //  Created by Zhixiang Zhu on 18/06/2018.
 //  Copyright © 2018 Guobo Chen. All rights reserved.
 //
-#include "base/gplus.h"
-
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <algorithm>
@@ -18,6 +16,7 @@
 #include "base/exception.h"
 #include "base/subcommand_list.h"
 #include "util/executable_path.h"
+#include "util/program_options.h"
 #include "third_party/boost/log/trivial.hpp"
 #include "third_party/boost/log/utility/setup/common_attributes.hpp"
 #include "third_party/boost/log/utility/setup/console.hpp"
@@ -124,13 +123,6 @@ static void InitLogging() {
   logging::add_common_attributes();
 }
 
-const char* kArgv0;
-
-po::variables_map& GetProgramArguments() {
-  static po::variables_map* const args = new po::variables_map;
-  return *args;
-}
-
 }  // namespace gplus
 
 int main(int argc, const char* argv[]) {
@@ -156,7 +148,7 @@ int main(int argc, const char* argv[]) {
   subcmd->AddPositionalOptionsDescription(&pd);
   auto parser = po::command_line_parser(argc - 1, subcmd_argv.get());
   auto parsed_options = parser.options(opt_desc).positional(pd).run();
-  auto & prog_args = gplus::GetProgramArguments();
+  auto & prog_args = gplus::GetSpecifiedOptions();
   po::store(parsed_options, prog_args);
   po::notify(prog_args);
 

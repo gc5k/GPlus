@@ -11,8 +11,8 @@
 #include <iostream>
 #include <sstream>
 
-#include "base/gplus.h"
 #include "base/subcommand_list.h"
+#include "util/program_options.h"
 
 using std::cout;
 using std::cerr;
@@ -75,7 +75,7 @@ static void PrintSubcommandList() {
 }
 
 void HelpSubcommand::Execute() {
-  auto & prog_args = GetProgramArguments();
+  auto & prog_args = GetSpecifiedOptions();
   if (prog_args.count("subcmd")) {
     // Pring help message of the subcommand.
     auto subcmd_name = prog_args["subcmd"].as<std::string>();
