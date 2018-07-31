@@ -9,11 +9,7 @@
 namespace gplus {
 
 std::shared_ptr<ScoreFile> ScoreFile::ReadScoreFile() {
-  auto& prog_args = GetSpecifiedOptions();
-  if (prog_args.count("score") <= 0) {
-    throw MissingProgramOptionException("score");
-  }
-  auto filename = prog_args["score"].as<std::string>();
+  auto filename = GetOptionValue<std::string>("score");
   std::shared_ptr<ScoreFile> score_file(new ScoreFile);
   return score_file;
 }
