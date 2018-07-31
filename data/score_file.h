@@ -7,14 +7,10 @@
 
 namespace gplus {
 
-namespace data {
-
 class ScoreFile {
  public:
   static std::shared_ptr<ScoreFile> ReadScoreFile();
 };
-
-}  // namespace data
 
 }  // namespace gplus
 

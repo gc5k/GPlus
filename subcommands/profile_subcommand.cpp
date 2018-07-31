@@ -29,7 +29,7 @@ po::options_description ProfileSubcommand::GetAllOptionsDescription() const {
 }
 
 void ProfileSubcommand::Execute() {
-  auto score_file = data::ScoreFile::ReadScoreFile();
+  auto score_file = ScoreFile::ReadScoreFile();
 }
 
 }  // namespace gplus

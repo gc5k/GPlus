@@ -8,8 +8,6 @@
 
 namespace gplus {
 
-namespace data {
-
 std::shared_ptr<ScoreFile> ScoreFile::ReadScoreFile() {
   auto& prog_args = GetSpecifiedOptions();
   if (prog_args.count("score") <= 0) {
@@ -19,7 +17,5 @@ std::shared_ptr<ScoreFile> ScoreFile::ReadScoreFile() {
   std::shared_ptr<ScoreFile> score_file(new ScoreFile);
   return score_file;
 }
-
-}  // namespace data
 
 }  // namespace gplus
