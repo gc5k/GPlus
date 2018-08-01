@@ -17,6 +17,7 @@
 #include "base/subcommand_list.h"
 #include "util/executable_path.h"
 #include "util/program_options.h"
+#include "third_party/boost/exception/all.hpp"
 #include "third_party/boost/log/trivial.hpp"
 #include "third_party/boost/log/utility/setup/common_attributes.hpp"
 #include "third_party/boost/log/utility/setup/console.hpp"
@@ -140,23 +141,27 @@ int main(int argc, const char* argv[]) {
     << "No subcommand named as '" << subcmd_name << "'." << std::endl;
     return 1;
   }
-  // Parse and store the command-line arguments.
-  std::unique_ptr<const char *[]> subcmd_argv(new const char *[argc - 1]);
-  std::copy(argv + 1, argv + argc, subcmd_argv.get());
-  po::options_description opts_desc;
-  subcmd->AddOptionsDesc(&opts_desc);
-  gplus::PositionalOptionsDesc pd;
-  subcmd->AddPositionalOptionsDesc(&pd);
-  auto parser = po::command_line_parser(argc - 1, subcmd_argv.get());
-  auto parsed_options = parser.options(opts_desc).positional(pd).run();
-  auto& prog_args = gplus::GetSpecifiedOptions();
-  po::store(parsed_options, prog_args);
-  po::notify(prog_args);
-
   try {
+    // Parse and store the command-line arguments.
+    std::unique_ptr<const char *[]> subcmd_argv(new const char *[argc - 1]);
+    std::copy(argv + 1, argv + argc, subcmd_argv.get());
+    po::options_description opts_desc;
+    subcmd->AddOptionsDesc(&opts_desc);
+    gplus::PositionalOptionsDesc pd;
+    subcmd->AddPositionalOptionsDesc(&pd);
+    auto parser = po::command_line_parser(argc - 1, subcmd_argv.get());
+    auto parsed_options = parser.options(opts_desc).positional(pd).run();
+    auto& prog_args = gplus::GetSpecifiedOptions();
+    po::store(parsed_options, prog_args);
+    po::notify(prog_args);
+    
     subcmd->Execute();
   } catch (const gplus::Exception& e) {
     BOOST_LOG_TRIVIAL(error) << e.GetExceptionMessage() << std::endl;
+  } catch (const boost::exception& e) {
+    BOOST_LOG_TRIVIAL(error) << boost::diagnostic_information(e);
+  } catch (std::exception& e) {
+    BOOST_LOG_TRIVIAL(error) << e.what() << std::endl;
   }
 
   return 0;
