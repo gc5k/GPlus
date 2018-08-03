@@ -22,7 +22,8 @@ template<typename T>
 T GetOptionValue(const char* option_name) {
   auto& prog_opts = GetSpecifiedOptions();
   if (prog_opts.count(option_name) <= 0) {
-    throw MissingProgramOptionException(option_name);
+    auto e = Exception(EXCEPTION_MISSING_OPTION) << ErrorOption(option_name);
+    BOOST_THROW_EXCEPTION(e);
   }
   return prog_opts[option_name].as<T>();
 }

@@ -17,7 +17,6 @@
 #include "base/subcommand_list.h"
 #include "util/executable_path.h"
 #include "util/program_options.h"
-#include "third_party/boost/exception/all.hpp"
 #include "third_party/boost/log/trivial.hpp"
 #include "third_party/boost/log/utility/setup/common_attributes.hpp"
 #include "third_party/boost/log/utility/setup/console.hpp"
@@ -156,12 +155,11 @@ int main(int argc, const char* argv[]) {
     po::notify(prog_args);
     
     subcmd->Execute();
-  } catch (const gplus::Exception& e) {
-    BOOST_LOG_TRIVIAL(error) << e.GetExceptionMessage() << std::endl;
-  } catch (const boost::exception& e) {
-    BOOST_LOG_TRIVIAL(error) << boost::diagnostic_information(e);
-  } catch (std::exception& e) {
-    BOOST_LOG_TRIVIAL(error) << e.what() << std::endl;
+  } catch (const std::exception& e) {
+    auto gplus_exception = dynamic_cast<const gplus::Exception*>(&e);
+    auto msg = gplus_exception == nullptr ?
+        e.what() : gplus::GetFormattedExceptionMessage(*gplus_exception);
+    BOOST_LOG_TRIVIAL(error) << msg << std::endl;
   }
 
   return 0;
