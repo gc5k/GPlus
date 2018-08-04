@@ -1,6 +1,6 @@
 gplus.xcodeproj/project.xcworkspace/xcuserdata
 gplus.xcodeproj/xcuserdata
-gplus.log
+*.log
 x64
 *~
 .vs

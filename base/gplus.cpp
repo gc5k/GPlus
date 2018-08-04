@@ -16,6 +16,7 @@
 #include "base/exception.h"
 #include "base/subcommand_list.h"
 #include "util/executable_path.h"
+#include "util/log.h"
 #include "util/program_options.h"
 #include "third_party/boost/log/trivial.hpp"
 #include "third_party/boost/log/utility/setup/common_attributes.hpp"
@@ -27,7 +28,6 @@
 #include "third_party/crashpad/client/settings.h"
 
 namespace po = boost::program_options;
-namespace logging = boost::log;
 
 namespace gplus {
 
@@ -113,16 +113,6 @@ static bool StartCrashHandler() {
   return true;
 }
 
-static void InitLogging() {
-  logging::add_console_log();
-  logging::add_file_log(
-      // file name pattern
-      logging::keywords::file_name = "gplus.log",
-      // log record format
-      logging::keywords::format = "[%TimeStamp%]: %Message%");
-  logging::add_common_attributes();
-}
-
 }  // namespace gplus
 
 int main(int argc, const char* argv[]) {
@@ -136,8 +126,7 @@ int main(int argc, const char* argv[]) {
   auto subcmd_name = argv[1];
   auto subcmd = gplus::FindSubcommand(subcmd_name);
   if (nullptr == subcmd) {
-    BOOST_LOG_TRIVIAL(error)
-    << "No subcommand named as '" << subcmd_name << "'." << std::endl;
+    GPLUS_LOG << "No subcommand named as '" << subcmd_name << "'." << std::endl;
     return 1;
   }
   try {
@@ -159,7 +148,8 @@ int main(int argc, const char* argv[]) {
     auto gplus_exception = dynamic_cast<const gplus::Exception*>(&e);
     auto msg = gplus_exception == nullptr ?
         e.what() : gplus::GetFormattedExceptionMessage(*gplus_exception);
-    BOOST_LOG_TRIVIAL(error) << msg << std::endl;
+    GPLUS_LOG << msg << std::endl;
+    GPLUS_DIAGNOSTIC_LOG << boost::diagnostic_information(e);
   }
 
   return 0;
