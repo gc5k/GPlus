@@ -41,7 +41,7 @@ static ExceptionFormatter formatters[] = { {
 } };
 
 const char* GetFormattedExceptionMessage(const Exception& e) {
-  for (auto formatter: formatters) {
+  for (auto formatter : formatters) {
     if (strcmp(formatter.what, e.what()) == 0) {
       formatter.format_func(e);
       return msg_buf;

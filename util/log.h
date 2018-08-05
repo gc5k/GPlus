@@ -20,7 +20,7 @@ BOOST_LOG_INLINE_GLOBAL_LOGGER_DEFAULT(logger, boost::log::sources::logger)
 
 BOOST_LOG_INLINE_GLOBAL_LOGGER_DEFAULT(
     diagnostic_logger, boost::log::sources::logger)
-  
+
 #define GPLUS_DIAGNOSTIC_LOG BOOST_LOG(gplus::diagnostic_logger::get())
 
 void InitLogging();

@@ -120,16 +120,20 @@ int main(int argc, const char* argv[]) {
     std::cout << "Type '" << argv[0] << " help' for usage." << std::endl;
     return 0;
   }
+
   gplus::kArgv0 = argv[0];
-  gplus::InitLogging();
-  gplus::StartCrashHandler();
-  auto subcmd_name = argv[1];
-  auto subcmd = gplus::FindSubcommand(subcmd_name);
-  if (nullptr == subcmd) {
-    GPLUS_LOG << "No subcommand named as '" << subcmd_name << "'." << std::endl;
-    return 1;
-  }
+
   try {
+    gplus::InitLogging();
+    gplus::StartCrashHandler();
+    auto subcmd_name = argv[1];
+    auto subcmd = gplus::FindSubcommand(subcmd_name);
+    if (nullptr == subcmd) {
+      GPLUS_LOG
+      << "No subcommand named as '" << subcmd_name << "'." << std::endl;
+      return 1;
+    }
+
     // Parse and store the command-line arguments.
     std::unique_ptr<const char *[]> subcmd_argv(new const char *[argc - 1]);
     std::copy(argv + 1, argv + argc, subcmd_argv.get());
@@ -142,7 +146,7 @@ int main(int argc, const char* argv[]) {
     auto& prog_args = gplus::GetSpecifiedOptions();
     po::store(parsed_options, prog_args);
     po::notify(prog_args);
-    
+
     subcmd->Execute();
   } catch (const std::exception& e) {
     auto gplus_exception = dynamic_cast<const gplus::Exception*>(&e);
