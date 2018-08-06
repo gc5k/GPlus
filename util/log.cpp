@@ -30,8 +30,6 @@ namespace attrs = boost::log::attributes;
 
 namespace gplus {
 
-BOOST_LOG_ATTRIBUTE_KEYWORD(diagnostic_attr, "Diagnostic", bool)
-
 void InitLogging() {
   using boost::posix_time::ptime;
   auto formatter = expr::format("[%1%] %2%")
@@ -52,20 +50,9 @@ void InitLogging() {
   boost::shared_ptr<std::ostream> stream(&std::clog, boost::null_deleter());
   sink->locked_backend()->add_stream(stream);
 
-  sink->set_filter(!expr::has_attr(diagnostic_attr));
   sink->set_formatter(formatter);
 
   // Register the sink in the logging core
-  logging::core::get()->add_sink(sink);
-
-  // Diagnostic logging
-  auto& dlg = diagnostic_logger::get();
-  dlg.add_attribute("Diagnostic", attrs::constant<bool>(true));
-  sink = boost::make_shared<text_sink>();
-  sink->locked_backend()->add_stream(
-      boost::make_shared<std::ofstream>("gplus_diagnostic.log"));
-  sink->set_filter(expr::has_attr(diagnostic_attr) && diagnostic_attr);
-  sink->set_formatter(formatter);
   logging::core::get()->add_sink(sink);
 
   logging::add_common_attributes();

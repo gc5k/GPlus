@@ -8,7 +8,8 @@
 
 #include "util/file_helper.h"
 
-#include "base/exception.h"
+#include <cstdlib>
+#include "util/log.h"
 
 using std::ifstream;
 
@@ -17,8 +18,8 @@ namespace gplus {
 std::shared_ptr<ifstream> OpenTextFile(const char* filename) {
   std::shared_ptr<ifstream> ifs(new ifstream(filename, ifstream::in));
   if (!ifs->good()) {
-    auto e = Exception(EXCEPTION_FILE_NOT_FOUND) << ErrorFileName(filename);
-    BOOST_THROW_EXCEPTION(e);
+    GPLUS_LOG << "Cannot open file '" << filename << "'." << std::endl;
+    exit(EXIT_FAILURE);
   }
   return ifs;
 }

@@ -13,13 +13,11 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include "base/exception.h"
+#include "base/global_variables.h"
 #include "base/subcommand_list.h"
 #include "util/executable_path.h"
 #include "util/log.h"
 #include "util/program_options.h"
-#include "third_party/boost/log/trivial.hpp"
-#include "third_party/boost/log/utility/setup/common_attributes.hpp"
 #include "third_party/boost/log/utility/setup/console.hpp"
 #include "third_party/boost/log/utility/setup/file.hpp"
 #include "third_party/boost/program_options/parsers.hpp"
@@ -30,6 +28,8 @@
 namespace po = boost::program_options;
 
 namespace gplus {
+
+GlobalVariables *gvar = new GlobalVariables;
 
 static bool StartCrashHandler() {
   std::map<std::string, std::string> annotations;
@@ -149,11 +149,8 @@ int main(int argc, const char* argv[]) {
 
     subcmd->Execute();
   } catch (const std::exception& e) {
-    auto gplus_exception = dynamic_cast<const gplus::Exception*>(&e);
-    auto msg = gplus_exception == nullptr ?
-        e.what() : gplus::GetFormattedExceptionMessage(*gplus_exception);
-    GPLUS_LOG << msg << std::endl;
-    GPLUS_DIAGNOSTIC_LOG << boost::diagnostic_information(e);
+    GPLUS_LOG << e.what() << std::endl;
+    exit(EXIT_FAILURE);
   }
 
   return 0;

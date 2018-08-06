@@ -11,17 +11,13 @@
 
 #include "third_party/boost/log/sources/logger.hpp"
 #include "third_party/boost/log/sources/global_logger_storage.hpp"
+#include "third_party/boost/log/sources/record_ostream.hpp"
 
 namespace gplus {
 
 BOOST_LOG_INLINE_GLOBAL_LOGGER_DEFAULT(logger, boost::log::sources::logger)
 
 #define GPLUS_LOG BOOST_LOG(gplus::logger::get())
-
-BOOST_LOG_INLINE_GLOBAL_LOGGER_DEFAULT(
-    diagnostic_logger, boost::log::sources::logger)
-
-#define GPLUS_DIAGNOSTIC_LOG BOOST_LOG(gplus::diagnostic_logger::get())
 
 void InitLogging();
 

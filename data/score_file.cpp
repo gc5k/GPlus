@@ -3,7 +3,7 @@
 #include "data/score_file.h"
 
 #include <string>
-#include "base/exception.h"
+#include "base/global_variables.h"
 #include "util/file_helper.h"
 #include "util/program_options.h"
 

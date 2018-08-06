@@ -3,7 +3,8 @@
 #ifndef GPLUS_UTIL_PROGRAM_OPTIONS_H_
 #define GPLUS_UTIL_PROGRAM_OPTIONS_H_
 
-#include "base/exception.h"
+#include <cstdlib>
+#include "util/log.h"
 #include "third_party/boost/program_options/options_description.hpp"
 #include "third_party/boost/program_options/positional_options.hpp"
 #include "third_party/boost/program_options/variables_map.hpp"
@@ -22,8 +23,8 @@ template<typename T>
 T GetOptionValue(const char* option_name) {
   auto& prog_opts = GetSpecifiedOptions();
   if (prog_opts.count(option_name) <= 0) {
-    auto e = Exception(EXCEPTION_MISSING_OPTION) << ErrorOption(option_name);
-    BOOST_THROW_EXCEPTION(e);
+    GPLUS_LOG << "Missing option --" << option_name << std::endl;
+    exit(EXIT_FAILURE);
   }
   return prog_opts[option_name].as<T>();
 }
