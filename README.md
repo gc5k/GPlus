@@ -7,6 +7,6 @@ To build on Windows, you need to download and build the Program Options library 
 
 ### Coding Style
 
-Please follow [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html) with the following exceptions. However, we encourage the use of Boost libraries and C++17 are encouraged to try their new and ambitious methodology, as long as they don't complicate the business code.
+Please follow [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html) with the following exceptions. Use of Boost libraries and C++17 are encouraged to try their new and ambitious methodology, as long as they don't complicate the business code.
 
 [`cpplint.sh`](https://github.com/gc5k/gplus/blob/master/cpplint.sh) is used to check whether all or specific source files follow [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html). Notice that it uses the `-printf` option of `find` to ignore the `third_party` directory. This option is only available in GNU `find` but not in BSD `find` which is default on Mac OS X. Type `brew install findutils` in terminal to install GNU `find` on Mac OS X. See [this post](https://superuser.com/a/293200/95715) for more details.
