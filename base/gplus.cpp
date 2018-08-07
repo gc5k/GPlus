@@ -21,9 +21,11 @@
 #include "third_party/boost/log/utility/setup/console.hpp"
 #include "third_party/boost/log/utility/setup/file.hpp"
 #include "third_party/boost/program_options/parsers.hpp"
+#ifdef USE_CRASHPAD
 #include "third_party/crashpad/client/crashpad_client.h"
 #include "third_party/crashpad/client/crash_report_database.h"
 #include "third_party/crashpad/client/settings.h"
+#endif  // USE_CRASHPAD
 
 namespace po = boost::program_options;
 
@@ -31,6 +33,7 @@ namespace gplus {
 
 GlobalVariables *gvar = new GlobalVariables;
 
+#ifdef USE_CRASHPAD
 static bool StartCrashHandler() {
   std::map<std::string, std::string> annotations;
   std::vector<std::string> arguments;
@@ -112,6 +115,7 @@ static bool StartCrashHandler() {
 #endif
   return true;
 }
+#endif  // USE_CRASHPAD
 
 }  // namespace gplus
 
@@ -125,7 +129,9 @@ int main(int argc, const char* argv[]) {
 
   try {
     gplus::InitLogging();
+#ifdef USE_CRASHPAD
     gplus::StartCrashHandler();
+#endif  //USE_CRASHPAD
     auto subcmd_name = argv[1];
     auto subcmd = gplus::FindSubcommand(subcmd_name);
     if (nullptr == subcmd) {
