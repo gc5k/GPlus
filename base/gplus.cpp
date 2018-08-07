@@ -131,7 +131,7 @@ int main(int argc, const char* argv[]) {
     gplus::InitLogging();
 #ifdef USE_CRASHPAD
     gplus::StartCrashHandler();
-#endif  //USE_CRASHPAD
+#endif  // USE_CRASHPAD
     auto subcmd_name = argv[1];
     auto subcmd = gplus::FindSubcommand(subcmd_name);
     if (nullptr == subcmd) {

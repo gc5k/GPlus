@@ -12,10 +12,14 @@
 #include <memory>
 #include <iostream>
 #include <fstream>
+#include <string>
 
 namespace gplus {
 
 std::shared_ptr<std::ifstream> OpenTextFile(const char* filename);
+
+std::ifstream& GetNonEmptyLine(
+    std::ifstream* in_strm_ptr, std::string* str_ptr);
 
 }  // namespace gplus
 
