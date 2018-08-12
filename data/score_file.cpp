@@ -2,32 +2,32 @@
 
 #include "data/score_file.h"
 
-#include <cstdlib>
-#include <string>
-
-#include "base/global_variables.h"
-#include "util/file_helper.h"
+#include <algorithm>
+#include <iterator>
+#include "data/text_file_reader.h"
 #include "util/program_options.h"
 
 using std::string;
+using std::vector;
 
 namespace gplus {
 
 std::shared_ptr<ScoreFile> ScoreFile::ReadScoreFile() {
-  auto filename = GetOptionValue<std::string>("score");
-  auto file_ptr = OpenTextFile(filename.c_str());
+  auto file_name = GetOptionValue<std::string>("score");
+  TextFileReader reader("score", file_name);
+  const vector<string>& columns = reader.GetColumns();
 
-  string line;
+  // file name
+  std::shared_ptr<ScoreFile> score_file(new ScoreFile);
+  score_file->file_name_ = file_name;
 
-  // Read title line.
-  GetNonEmptyLine(file_ptr.get(), &line);
-  if (line.empty()) {
-    GPLUS_LOG << "Score file '" << filename << "' is empty." << std::endl;
-    exit(EXIT_FAILURE);
-  }
-  string titleLine = line;
+  // score names (titles)
+  reader.ReadColumns(3);
+  vector<string>& score_names = score_file->score_names_;
+  score_names.reserve(columns.size() - 2);
+  std::copy(columns.cbegin() + 2, columns.cend(),
+            std::back_inserter(score_names));
 
-  std::shared_ptr<ScoreFile> score_file(new ScoreFile(filename));
   return score_file;
 }
 

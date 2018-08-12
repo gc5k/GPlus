@@ -1,0 +1,1 @@
+ SNP   RefA   S1  S2

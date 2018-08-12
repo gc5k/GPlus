@@ -5,16 +5,18 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
 namespace gplus {
 
 class ScoreFile {
  public:
-  explicit ScoreFile(const std::string& filename) : filename_(filename) {}
   static std::shared_ptr<ScoreFile> ReadScoreFile();
 
  private:
-  std::string filename_;
+  std::string file_name_;
+  std::vector<std::string> score_names_;
+  std::vector<std::vector<float>> score_values_;
 };
 
 }  // namespace gplus
