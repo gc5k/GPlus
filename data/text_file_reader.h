@@ -9,6 +9,7 @@
 #ifndef GPLUS_DATA_TEXT_FILE_READER_
 #define GPLUS_DATA_TEXT_FILE_READER_
 
+#include <algorithm>
 #include <memory>
 #include <iostream>
 #include <fstream>
@@ -23,6 +24,12 @@ class TextFileReader {
                           const std::string& file_name);
   const std::vector<std::string>& GetColumns() const { return columns_; }
   bool ReadColumns(int minimal_column_count_required = 0);
+  std::string GetRowLocationForLog() const;
+  bool IsMissingValue(const std::string& val) const {
+    return std::find(missing_value_marks_.begin(),
+                     missing_value_marks_.end(),
+                     val) != missing_value_marks_.end();
+  }
 
  private:
   bool ReadNonEmptyLine();
@@ -36,6 +43,7 @@ class TextFileReader {
   int row_no_;
   std::vector<std::string> columns_;
   size_t column_count_required_;
+  std::vector<std::string> missing_value_marks_;
 };
 
 }  // namespace gplus

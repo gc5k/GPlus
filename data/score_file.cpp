@@ -2,8 +2,9 @@
 
 #include "data/score_file.h"
 
-#include <algorithm>
-#include <iterator>
+#include <cctype>  // toupper
+#include <algorithm>  // copy
+#include <iterator>  // back_inserter
 #include "data/text_file_reader.h"
 #include "util/program_options.h"
 
@@ -14,6 +15,7 @@ namespace gplus {
 
 std::shared_ptr<ScoreFile> ScoreFile::ReadScoreFile() {
   auto file_name = GetOptionValue<std::string>("score");
+  auto missing_score = static_cast<float>(GetOptionValue<int>("missing-score"));
   TextFileReader reader("score", file_name);
   const vector<string>& columns = reader.GetColumns();
 
@@ -27,6 +29,62 @@ std::shared_ptr<ScoreFile> ScoreFile::ReadScoreFile() {
   score_names.reserve(columns.size() - 2);
   std::copy(columns.cbegin() + 2, columns.cend(),
             std::back_inserter(score_names));
+
+  // SNPs and score values
+  vector<Snp>& snps = score_file->snps_;
+  vector<vector<float>>& score_values = score_file->score_values_;
+  score_values.resize(score_names.size());
+  while (reader.ReadColumns()) {
+    auto col_iter = columns.cbegin();
+
+    // SNP name and reference allele
+    Snp snp;
+    snp.name = *col_iter++;
+    auto& ref = *col_iter++;
+    if ("A" != ref && "T" != ref && "C" != ref && "G" != ref &&
+        "a" != ref && "t" != ref && "c" != ref && "g" != ref) {
+      GPLUS_LOG
+      << "SNP " << snp.name << " at " << reader.GetRowLocationForLog()
+      << " has an invalid reference allele '" << ref
+      << "'. A reference allele must be A, T, C, or G." << std::endl;
+      exit(EXIT_FAILURE);
+    }
+    snp.ref = toupper(ref[0]);
+    snps.push_back(snp);
+
+    // score values
+    auto score_vectors_iter = score_values.begin();
+    while (col_iter != columns.cend()) {
+      const string& col_val = *col_iter++;
+      if (reader.IsMissingValue(col_val)) {
+        (score_vectors_iter++)->push_back(missing_score);
+      } else {
+        try {
+          float score_value = stof(col_val);
+          (score_vectors_iter++)->push_back(score_value);
+        } catch (std::invalid_argument) {
+          GPLUS_LOG
+          << "SNP " << snp.name << " has an invalid score value '"
+          << col_val << "'. A score value must be a floating point number."
+          << std::endl;
+          exit(EXIT_FAILURE);
+        } catch (std::out_of_range) {
+          GPLUS_LOG
+          << "SNP " << snp.name << " has a score value " << col_val
+          << " which is out of the range of floating point numbers."
+          << std::endl;
+          exit(EXIT_FAILURE);
+        }
+      }
+    }
+  }
+
+  if (snps.empty()) {
+    GPLUS_LOG
+    << "The score file '" << file_name
+    << "' just contains a title line and no SNP score data." << std::endl;
+    exit(EXIT_FAILURE);
+  }
 
   return score_file;
 }

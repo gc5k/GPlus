@@ -14,6 +14,7 @@
 #include "third_party/boost/algorithm/string/classification.hpp"  // is_any_of
 #include "third_party/boost/algorithm/string/split.hpp"
 #include "third_party/boost/algorithm/string/trim.hpp"
+#include "third_party/boost/format.hpp"
 #include "util/log.h"
 
 using std::ifstream;
@@ -29,7 +30,8 @@ TextFileReader::TextFileReader(const std::string& file_description,
       in_stream_(file_name),
       line_no_(0),
       column_count_required_(0),
-      row_no_(0) {
+      row_no_(0),
+      missing_value_marks_({".", "-", "N/A", "NA", "n/a", "na"}) {
   if (!in_stream_) {
     GPLUS_LOG << "Cannot open " << file_desc_ << "." << std::endl;
     exit(EXIT_FAILURE);
@@ -61,21 +63,29 @@ bool TextFileReader::ReadColumns(int minimal_column_count_required) {
   if (columns_.size() < minimal_column_count_required) {
     GPLUS_LOG
     << file_desc_u_ << " should have at least " << minimal_column_count_required
-    << " column(s) at row " << row_no_
-    << " (line " << line_no_ << " of the file, but now only " << columns_.size()
+    << " column(s) at " << GetRowLocationForLog() << ", but now only "
+    << columns_.size()
     << (columns_.size() <= 1 ? " column is read." : " columns are read.");
     exit(EXIT_FAILURE);
+  }
+  if (columns_.empty()) {
+    return false;
   }
   if (column_count_required_ == 0) {
     column_count_required_ = columns_.size();
   } else if (column_count_required_ != columns_.size()) {
     GPLUS_LOG
     << "Row 1 of " << file_desc_ << " has " << column_count_required_
-    << " column(s), but row " << row_no_ << " (line " << line_no_
-    << " of the file) has " << columns_.size() << " column(s)." << std::endl;
+    << " column(s), but " << GetRowLocationForLog()
+    << " has " << columns_.size() << " column(s)." << std::endl;
     exit(EXIT_FAILURE);
   }
-  return !columns_.empty();
+  return true;
+}
+
+string TextFileReader::GetRowLocationForLog() const {
+  return (boost::format("row %1% (line %2% of the file)")
+          % row_no_ % line_no_).str();
 }
 
 }  // namespace gplus

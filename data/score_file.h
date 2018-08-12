@@ -11,11 +11,17 @@ namespace gplus {
 
 class ScoreFile {
  public:
+  struct Snp {
+    std::string name;
+    char ref;
+  };
+
   static std::shared_ptr<ScoreFile> ReadScoreFile();
 
  private:
   std::string file_name_;
   std::vector<std::string> score_names_;
+  std::vector<Snp> snps_;
   std::vector<std::vector<float>> score_values_;
 };
 
