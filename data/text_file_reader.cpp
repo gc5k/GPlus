@@ -8,7 +8,7 @@
 
 #include "data/text_file_reader.h"
 
-#include <cassert>
+#include <cctype>  // toupper
 #include <cstdlib>
 
 #include "third_party/boost/algorithm/string/classification.hpp"  // is_any_of
@@ -54,31 +54,42 @@ bool TextFileReader::ReadNonEmptyLine() {
   return false;
 }
 
-bool TextFileReader::ReadColumns(int minimal_column_count_required) {
+bool TextFileReader::ReadColumns(ColumnCountRequirement req, size_t col_cnt) {
   columns_.clear();
   if (ReadNonEmptyLine()) {
     boost::algorithm::split(columns_, line_, boost::is_any_of(" \t"),
                             boost::token_compress_on);
   }
-  if (columns_.size() < minimal_column_count_required) {
-    GPLUS_LOG
-    << file_desc_u_ << " should have at least " << minimal_column_count_required
-    << " column(s) at " << GetRowLocationForLog() << ", but now only "
-    << columns_.size()
-    << (columns_.size() <= 1 ? " column is read." : " columns are read.");
-    exit(EXIT_FAILURE);
-  }
+
+  // Check column count.
   if (columns_.empty()) {
     return false;
   }
+  switch (req) {
+    case kColumnCountExact:
+      if (columns_.size() != col_cnt) {
+        GPLUS_LOG
+        << file_desc_u_ << " should have exactly " << col_cnt
+        << " column(s) at row " << row_no_ << ", but actually it contains "
+        << columns_.size() << " column(s) now.";
+        exit(EXIT_FAILURE);
+      }
+      break;
+    case kColumnCountMinimal:
+      if (columns_.size() < col_cnt) {
+        GPLUS_LOG
+        << file_desc_u_ << " should have at least " << col_cnt
+        << " column(s) at " << GetRowLocationForLog() << ", but now only "
+        << columns_.size()
+        << (columns_.size() <= 1 ? " column is read." : " columns are read.");
+        exit(EXIT_FAILURE);
+      }
+      break;
+    default:
+      assert(false);
+  }
   if (column_count_required_ == 0) {
     column_count_required_ = columns_.size();
-  } else if (column_count_required_ != columns_.size()) {
-    GPLUS_LOG
-    << "Row 1 of " << file_desc_ << " has " << column_count_required_
-    << " column(s), but " << GetRowLocationForLog()
-    << " has " << columns_.size() << " column(s)." << std::endl;
-    exit(EXIT_FAILURE);
   }
   return true;
 }
@@ -86,6 +97,40 @@ bool TextFileReader::ReadColumns(int minimal_column_count_required) {
 string TextFileReader::GetRowLocationForLog() const {
   return (boost::format("row %1% (line %2% of the file)")
           % row_no_ % line_no_).str();
+}
+
+int TextFileReader::ReadIntForSnp(const std::string& snp_name,
+                                  const std::string& column_name,
+                                  const std::string& column_value) const {
+  try {
+    return std::stoi(column_value);
+  } catch (std::invalid_argument) {
+    GPLUS_LOG
+    << "SNP " << snp_name << " has an invalid " << column_name << " '"
+    << column_value << "' in line " << line_no_ << " of the " << file_desc_
+    << ". A " << column_name << " must be an integer.";
+    exit(EXIT_FAILURE);
+  } catch (std::out_of_range) {
+    GPLUS_LOG
+    << "SNP " << snp_name << " has a " << column_name << " value "
+    << column_value << " which is out the range of program integers.";
+    exit(EXIT_FAILURE);
+  }
+}
+
+char TextFileReader::ReadAlleleForSnp(const std::string& snp_name,
+                                      const std::string& column_value) const {
+  if ("A" != column_value && "T" != column_value &&
+      "C" != column_value && "G" != column_value &&
+      "a" != column_value && "t" != column_value &&
+      "c" != column_value && "g" != column_value) {
+    GPLUS_LOG
+    << "SNP " << snp_name << " has an invalid allele '" << column_value
+    << "' at line " << line_no_ << " of the " << file_desc_
+    << ". An allele must be A, T, C, or G.";
+    exit(EXIT_FAILURE);
+  }
+  return toupper(column_value[0]);
 }
 
 }  // namespace gplus

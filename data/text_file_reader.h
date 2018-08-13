@@ -9,6 +9,7 @@
 #ifndef GPLUS_DATA_TEXT_FILE_READER_
 #define GPLUS_DATA_TEXT_FILE_READER_
 
+#include <cassert>
 #include <algorithm>
 #include <memory>
 #include <iostream>
@@ -18,18 +19,34 @@
 
 namespace gplus {
 
+enum ColumnCountRequirement {
+  kColumnCountExact = 0,
+  kColumnCountMinimal,
+};
+
 class TextFileReader {
  public:
   explicit TextFileReader(const std::string& file_description,
                           const std::string& file_name);
   const std::vector<std::string>& GetColumns() const { return columns_; }
-  bool ReadColumns(int minimal_column_count_required = 0);
+  bool ReadColumns(ColumnCountRequirement req, size_t col_cnt);
+  bool ReadColumns() {
+    assert(row_no_ > 0);
+    return ReadColumns(kColumnCountExact, column_count_required_);
+  }
   std::string GetRowLocationForLog() const;
   bool IsMissingValue(const std::string& val) const {
     return std::find(missing_value_marks_.begin(),
                      missing_value_marks_.end(),
                      val) != missing_value_marks_.end();
   }
+
+  int ReadIntForSnp(const std::string& snp_name,
+                    const std::string& column_name,
+                    const std::string& column_value) const;
+
+  char ReadAlleleForSnp(const std::string& snp_name,
+                        const std::string& column_value) const;
 
  private:
   bool ReadNonEmptyLine();

@@ -155,7 +155,7 @@ int main(int argc, const char* argv[]) {
 
     subcmd->Execute();
   } catch (const std::exception& e) {
-    GPLUS_LOG << e.what() << std::endl;
+    GPLUS_LOG << e.what();
     exit(EXIT_FAILURE);
   }
 

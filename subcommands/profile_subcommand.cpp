@@ -10,6 +10,7 @@
 
 #include <string>
 #include "data/score_file.h"
+#include "data/bim_file.h"
 
 using std::string;
 namespace po = boost::program_options;
@@ -30,6 +31,8 @@ void ProfileSubcommand::AddOptionsDesc(OptionsDesc* opts_desc) const {
 
 void ProfileSubcommand::Execute() {
   auto score_file = ScoreFile::ReadScoreFile();
+  string file_name = GetOptionValue<string>("file");
+  auto bim_file = BimFile::Read(file_name + ".bim");
 }
 
 }  // namespace gplus

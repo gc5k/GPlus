@@ -23,7 +23,7 @@ template<typename T>
 T GetOptionValue(const char* option_name) {
   auto& prog_opts = GetSpecifiedOptions();
   if (prog_opts.count(option_name) <= 0) {
-    GPLUS_LOG << "Missing option --" << option_name << std::endl;
+    GPLUS_LOG << "Missing option --" << option_name;
     exit(EXIT_FAILURE);
   }
   return prog_opts[option_name].as<T>();

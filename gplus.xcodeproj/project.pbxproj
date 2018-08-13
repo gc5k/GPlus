@@ -12,6 +12,7 @@
 		084B277421049BC900BD0BE8 /* profile_subcommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 084B277221049BC900BD0BE8 /* profile_subcommand.cpp */; };
 		084D8A5E20E0E3E000D43521 /* subcommand_list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 084D8A5D20E0E3E000D43521 /* subcommand_list.cpp */; };
 		084D8A6220E0EA8100D43521 /* help_subcommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 084D8A6120E0EA8100D43521 /* help_subcommand.cpp */; };
+		085D3A7C2121226E0042BAD3 /* bim_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 085D3A7A2121226E0042BAD3 /* bim_file.cpp */; };
 		0864167920D85C45007F62D8 /* libclient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0864167820D85C45007F62D8 /* libclient.a */; };
 		0864167B20D85C56007F62D8 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0864167A20D85C55007F62D8 /* libbase.a */; };
 		0864167E20D85CAD007F62D8 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0864167D20D85CAD007F62D8 /* CoreFoundation.framework */; };
@@ -66,6 +67,9 @@
 		084D8A6020E0E7B700D43521 /* help_subcommand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = help_subcommand.h; sourceTree = "<group>"; };
 		084D8A6120E0EA8100D43521 /* help_subcommand.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = help_subcommand.cpp; sourceTree = "<group>"; };
 		084D8A6320E0EF6A00D43521 /* subcommand_list.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = subcommand_list.h; sourceTree = "<group>"; };
+		085D3A7A2121226E0042BAD3 /* bim_file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = bim_file.cpp; sourceTree = "<group>"; };
+		085D3A7B2121226E0042BAD3 /* bim_file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bim_file.h; sourceTree = "<group>"; };
+		085D3A7D212124D50042BAD3 /* test.bim */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.bim; sourceTree = "<group>"; };
 		0864167820D85C45007F62D8 /* libclient.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libclient.a; sourceTree = "<group>"; };
 		0864167A20D85C55007F62D8 /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbase.a; sourceTree = "<group>"; };
 		0864167D20D85CAD007F62D8 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -14068,6 +14072,7 @@
 			isa = PBXGroup;
 			children = (
 				08429A71211E825300E55F67 /* scores.txt */,
+				085D3A7D212124D50042BAD3 /* test.bim */,
 			);
 			path = examples;
 			sourceTree = "<group>";
@@ -36407,6 +36412,8 @@
 				080B27B4211468AA0092EF6C /* text_file_reader.h */,
 				08ABB6792110BA1700FB8878 /* score_file.cpp */,
 				08ABB67A2110BA1700FB8878 /* score_file.h */,
+				085D3A7A2121226E0042BAD3 /* bim_file.cpp */,
+				085D3A7B2121226E0042BAD3 /* bim_file.h */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -38515,6 +38522,7 @@
 				084D8A5E20E0E3E000D43521 /* subcommand_list.cpp in Sources */,
 				084D8A6220E0EA8100D43521 /* help_subcommand.cpp in Sources */,
 				089F3FEA20E68F5B00AE21E6 /* strict_cpp_re.inc in Sources */,
+				085D3A7C2121226E0042BAD3 /* bim_file.cpp in Sources */,
 				0868EF9120D7FA7500711306 /* gplus.cpp in Sources */,
 				084B277421049BC900BD0BE8 /* profile_subcommand.cpp in Sources */,
 				083EB8362115876500EE4D01 /* log.cpp in Sources */,

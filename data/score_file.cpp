@@ -2,7 +2,6 @@
 
 #include "data/score_file.h"
 
-#include <cctype>  // toupper
 #include <algorithm>  // copy
 #include <iterator>  // back_inserter
 #include "data/text_file_reader.h"
@@ -24,7 +23,7 @@ std::shared_ptr<ScoreFile> ScoreFile::ReadScoreFile() {
   score_file->file_name_ = file_name;
 
   // score names (titles)
-  reader.ReadColumns(3);
+  reader.ReadColumns(kColumnCountMinimal, 3);
   vector<string>& score_names = score_file->score_names_;
   score_names.reserve(columns.size() - 2);
   std::copy(columns.cbegin() + 2, columns.cend(),
@@ -40,16 +39,7 @@ std::shared_ptr<ScoreFile> ScoreFile::ReadScoreFile() {
     // SNP name and reference allele
     Snp snp;
     snp.name = *col_iter++;
-    auto& ref = *col_iter++;
-    if ("A" != ref && "T" != ref && "C" != ref && "G" != ref &&
-        "a" != ref && "t" != ref && "c" != ref && "g" != ref) {
-      GPLUS_LOG
-      << "SNP " << snp.name << " at " << reader.GetRowLocationForLog()
-      << " has an invalid reference allele '" << ref
-      << "'. A reference allele must be A, T, C, or G." << std::endl;
-      exit(EXIT_FAILURE);
-    }
-    snp.ref = toupper(ref[0]);
+    snp.ref = reader.ReadAlleleForSnp(snp.name, *col_iter++);
     snps.push_back(snp);
 
     // score values
@@ -65,14 +55,12 @@ std::shared_ptr<ScoreFile> ScoreFile::ReadScoreFile() {
         } catch (std::invalid_argument) {
           GPLUS_LOG
           << "SNP " << snp.name << " has an invalid score value '"
-          << col_val << "'. A score value must be a floating point number."
-          << std::endl;
+          << col_val << "'. A score value must be a floating point number.";
           exit(EXIT_FAILURE);
         } catch (std::out_of_range) {
           GPLUS_LOG
           << "SNP " << snp.name << " has a score value " << col_val
-          << " which is out of the range of floating point numbers."
-          << std::endl;
+          << " which is out of the range of floating point numbers.";
           exit(EXIT_FAILURE);
         }
       }
@@ -82,7 +70,7 @@ std::shared_ptr<ScoreFile> ScoreFile::ReadScoreFile() {
   if (snps.empty()) {
     GPLUS_LOG
     << "The score file '" << file_name
-    << "' just contains a title line and no SNP score data." << std::endl;
+    << "' contains just a title line without any SNP score data.";
     exit(EXIT_FAILURE);
   }
 
