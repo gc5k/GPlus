@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		080B27B5211468AA0092EF6C /* text_file_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 080B27B3211468AA0092EF6C /* text_file_reader.cpp */; };
+		08308FF2212470270031E7C1 /* fam_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08308FF0212470270031E7C1 /* fam_file.cpp */; };
 		083EB8362115876500EE4D01 /* log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 083EB8342115876500EE4D01 /* log.cpp */; };
 		084B277421049BC900BD0BE8 /* profile_subcommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 084B277221049BC900BD0BE8 /* profile_subcommand.cpp */; };
 		084D8A5E20E0E3E000D43521 /* subcommand_list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 084D8A5D20E0E3E000D43521 /* subcommand_list.cpp */; };
@@ -57,6 +58,9 @@
 /* Begin PBXFileReference section */
 		080B27B3211468AA0092EF6C /* text_file_reader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = text_file_reader.cpp; sourceTree = "<group>"; };
 		080B27B4211468AA0092EF6C /* text_file_reader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = text_file_reader.h; sourceTree = "<group>"; };
+		08308FF0212470270031E7C1 /* fam_file.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = fam_file.cpp; sourceTree = "<group>"; };
+		08308FF1212470270031E7C1 /* fam_file.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fam_file.h; sourceTree = "<group>"; };
+		08308FF3212471DD0031E7C1 /* test.fam */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.fam; sourceTree = "<group>"; };
 		083EB8342115876500EE4D01 /* log.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = log.cpp; sourceTree = "<group>"; };
 		083EB8352115876500EE4D01 /* log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = log.h; sourceTree = "<group>"; };
 		08429A71211E825300E55F67 /* scores.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = scores.txt; sourceTree = "<group>"; };
@@ -14073,6 +14077,7 @@
 			children = (
 				08429A71211E825300E55F67 /* scores.txt */,
 				085D3A7D212124D50042BAD3 /* test.bim */,
+				08308FF3212471DD0031E7C1 /* test.fam */,
 			);
 			path = examples;
 			sourceTree = "<group>";
@@ -36414,6 +36419,8 @@
 				08ABB67A2110BA1700FB8878 /* score_file.h */,
 				085D3A7A2121226E0042BAD3 /* bim_file.cpp */,
 				085D3A7B2121226E0042BAD3 /* bim_file.h */,
+				08308FF0212470270031E7C1 /* fam_file.cpp */,
+				08308FF1212470270031E7C1 /* fam_file.h */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -38525,6 +38532,7 @@
 				085D3A7C2121226E0042BAD3 /* bim_file.cpp in Sources */,
 				0868EF9120D7FA7500711306 /* gplus.cpp in Sources */,
 				084B277421049BC900BD0BE8 /* profile_subcommand.cpp in Sources */,
+				08308FF2212470270031E7C1 /* fam_file.cpp in Sources */,
 				083EB8362115876500EE4D01 /* log.cpp in Sources */,
 				089F3FE920E68F5B00AE21E6 /* cpp_re.inc in Sources */,
 				080B27B5211468AA0092EF6C /* text_file_reader.cpp in Sources */,
