@@ -18,7 +18,7 @@ namespace gplus {
 class BimFile {
  public:
   struct Snp {
-    std::string ch;
+    int chromosome;
     std::string name;
     int dist;
     int bp;
