@@ -11,6 +11,7 @@
 
 #include <cassert>
 #include <algorithm>
+#include <limits>
 #include <memory>
 #include <iostream>
 #include <fstream>
@@ -41,9 +42,11 @@ class TextFileReader {
                      val) != missing_value_marks_.end();
   }
 
-  int ReadIntForSnp(const std::string& snp_name,
-                    const std::string& column_name,
-                    const std::string& column_value) const;
+  int ReadInt(const std::string& row_name,
+              const std::string& column_name,
+              const std::string& value,
+              int min = std::numeric_limits<int>::min(),
+              int max = std::numeric_limits<int>::max()) const;
 
   char ReadAlleleForSnp(const std::string& snp_name,
                         const std::string& column_value) const;

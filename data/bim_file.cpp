@@ -28,9 +28,9 @@ std::shared_ptr<BimFile> BimFile::Read(const std::string &file_name) {
     Snp snp;
     auto& ch = *iter++;
     snp.name = *iter++;
-    snp.chromosome = reader.ReadIntForSnp(snp.name, "chromosome", ch);
-    snp.dist = reader.ReadIntForSnp(snp.name, "dist", *iter++);
-    snp.bp = reader.ReadIntForSnp(snp.name, "bp", *iter++);
+    snp.chromosome = reader.ReadInt(snp.name, "chromosome", ch);
+    snp.dist = reader.ReadInt(snp.name, "dist", *iter++);
+    snp.bp = reader.ReadInt(snp.name, "bp", *iter++);
     snp.allele1 = reader.ReadAlleleForSnp(snp.name, *iter++);
     snp.allele2 = reader.ReadAlleleForSnp(snp.name, *iter++);
     bim_file->snps_.push_back(snp);

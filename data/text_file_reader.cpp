@@ -99,21 +99,28 @@ string TextFileReader::GetRowLocationForLog() const {
           % row_no_ % line_no_).str();
 }
 
-int TextFileReader::ReadIntForSnp(const std::string& snp_name,
-                                  const std::string& column_name,
-                                  const std::string& column_value) const {
+int TextFileReader::ReadInt(const std::string& row_name,
+                            const std::string& column_name,
+                            const std::string& value,
+                            int min, int max) const {
   try {
-    return std::stoi(column_value);
+    int int_val = std::stoi(value);
+    if (int_val < min || int_val > max) {
+      GPLUS_LOG << row_name << " has an invalid " << column_name << " in line "
+                << line_no_ << " of the " << file_desc_ << ". A " << column_name
+                << " must be no less than " << min << " and no greater than "
+                << max;
+      exit(EXIT_FAILURE);
+    }
+    return int_val;
   } catch (std::invalid_argument) {
-    GPLUS_LOG
-    << "SNP " << snp_name << " has an invalid " << column_name << " '"
-    << column_value << "' in line " << line_no_ << " of the " << file_desc_
-    << ". A " << column_name << " must be an integer.";
+    GPLUS_LOG << row_name << " has an invalid " << column_name << " '" << value
+              << "' in line " << line_no_ << " of the " << file_desc_ << ". A "
+              << column_name << " must be an integer.";
     exit(EXIT_FAILURE);
   } catch (std::out_of_range) {
-    GPLUS_LOG
-    << "SNP " << snp_name << " has a " << column_name << " value "
-    << column_value << " which is out the range of program integers.";
+    GPLUS_LOG << "SNP " << row_name << " has a " << column_name << " value "
+              << value << " which is out the range of program integers.";
     exit(EXIT_FAILURE);
   }
 }
