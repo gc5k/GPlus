@@ -17,6 +17,9 @@
     <Filter Include="Sources\data">
       <UniqueIdentifier>{81d2d871-f914-4a28-9309-5e9cc40c4c1d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Examples">
+      <UniqueIdentifier>{9714e84f-f307-4326-afc1-9562a8c1b21f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base\subcommand.h">
@@ -37,11 +40,23 @@
     <ClInclude Include="util\executable_path.h">
       <Filter>Sources\util</Filter>
     </ClInclude>
-    <ClInclude Include="base\exception.h">
-      <Filter>Sources\base</Filter>
-    </ClInclude>
     <ClInclude Include="util\program_options.h">
       <Filter>Sources\util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\log.h">
+      <Filter>Sources\util</Filter>
+    </ClInclude>
+    <ClInclude Include="data\bim_file.h">
+      <Filter>Sources\data</Filter>
+    </ClInclude>
+    <ClInclude Include="data\fam_file.h">
+      <Filter>Sources\data</Filter>
+    </ClInclude>
+    <ClInclude Include="data\text_file_reader.h">
+      <Filter>Sources\data</Filter>
+    </ClInclude>
+    <ClInclude Include="base\global_variables.h">
+      <Filter>Sources\base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -66,8 +81,31 @@
     <ClCompile Include="util\program_options.cpp">
       <Filter>Sources\util</Filter>
     </ClCompile>
+    <ClCompile Include="util\log.cpp">
+      <Filter>Sources\util</Filter>
+    </ClCompile>
+    <ClCompile Include="data\bim_file.cpp">
+      <Filter>Sources\data</Filter>
+    </ClCompile>
+    <ClCompile Include="data\fam_file.cpp">
+      <Filter>Sources\data</Filter>
+    </ClCompile>
+    <ClCompile Include="data\text_file_reader.cpp">
+      <Filter>Sources\data</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
+    <None Include="examples\test.bim">
+      <Filter>Examples</Filter>
+    </None>
+    <None Include="examples\test.fam">
+      <Filter>Examples</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="examples\scores.txt">
+      <Filter>Examples</Filter>
+    </Text>
   </ItemGroup>
 </Project>

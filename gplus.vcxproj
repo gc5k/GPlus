@@ -19,26 +19,39 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="base\exception.h" />
+    <ClInclude Include="base\global_variables.h" />
     <ClInclude Include="base\subcommand.h" />
     <ClInclude Include="base\subcommand_list.h" />
+    <ClInclude Include="data\bim_file.h" />
+    <ClInclude Include="data\fam_file.h" />
     <ClInclude Include="data\score_file.h" />
+    <ClInclude Include="data\text_file_reader.h" />
     <ClInclude Include="subcommands\help_subcommand.h" />
     <ClInclude Include="subcommands\profile_subcommand.h" />
     <ClInclude Include="util\executable_path.h" />
+    <ClInclude Include="util\log.h" />
     <ClInclude Include="util\program_options.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="base\gplus.cpp" />
     <ClCompile Include="base\subcommand_list.cpp" />
+    <ClCompile Include="data\bim_file.cpp" />
+    <ClCompile Include="data\fam_file.cpp" />
     <ClCompile Include="data\score_file.cpp" />
+    <ClCompile Include="data\text_file_reader.cpp" />
     <ClCompile Include="subcommands\help_subcommand.cpp" />
     <ClCompile Include="subcommands\profile_subcommand.cpp" />
     <ClCompile Include="util\executable_path.cpp" />
+    <ClCompile Include="util\log.cpp" />
     <ClCompile Include="util\program_options.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="examples\test.bim" />
+    <None Include="examples\test.fam" />
     <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="examples\scores.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
