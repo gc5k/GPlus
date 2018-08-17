@@ -32,6 +32,7 @@
 		08ABB67B2110BA1700FB8878 /* score_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08ABB6792110BA1700FB8878 /* score_file.cpp */; };
 		08AF819120D958F0001B957E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08AF819020D958EF001B957E /* Cocoa.framework */; };
 		08BA9862210BFBD100B461A2 /* executable_path.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08BA9860210BFBD100B461A2 /* executable_path.cpp */; };
+		08E7C0BF212718D700C7410A /* bed_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08E7C0BD212718D700C7410A /* bed_file.cpp */; };
 		08EA71D420F4310200B6781A /* libboost_chrono.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA71CB20F430FD00B6781A /* libboost_chrono.a */; };
 		08EA71D520F4310200B6781A /* libboost_log.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA71CC20F430FE00B6781A /* libboost_log.a */; };
 		08EA71D620F4310200B6781A /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA71CD20F430FE00B6781A /* libboost_system.a */; };
@@ -14029,6 +14030,8 @@
 		08B6F84F20E68303002AB59A /* xp_compat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xp_compat.h; sourceTree = "<group>"; };
 		08BA9860210BFBD100B461A2 /* executable_path.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = executable_path.cpp; sourceTree = "<group>"; };
 		08BA9861210BFBD100B461A2 /* executable_path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = executable_path.h; sourceTree = "<group>"; };
+		08E7C0BD212718D700C7410A /* bed_file.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = bed_file.cpp; sourceTree = "<group>"; };
+		08E7C0BE212718D700C7410A /* bed_file.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bed_file.h; sourceTree = "<group>"; };
 		08EA71CB20F430FD00B6781A /* libboost_chrono.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libboost_chrono.a; sourceTree = "<group>"; };
 		08EA71CC20F430FE00B6781A /* libboost_log.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libboost_log.a; sourceTree = "<group>"; };
 		08EA71CD20F430FE00B6781A /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libboost_system.a; sourceTree = "<group>"; };
@@ -36421,6 +36424,8 @@
 				085D3A7B2121226E0042BAD3 /* bim_file.h */,
 				08308FF0212470270031E7C1 /* fam_file.cpp */,
 				08308FF1212470270031E7C1 /* fam_file.h */,
+				08E7C0BD212718D700C7410A /* bed_file.cpp */,
+				08E7C0BE212718D700C7410A /* bed_file.h */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -38528,6 +38533,7 @@
 				08BA9862210BFBD100B461A2 /* executable_path.cpp in Sources */,
 				084D8A5E20E0E3E000D43521 /* subcommand_list.cpp in Sources */,
 				084D8A6220E0EA8100D43521 /* help_subcommand.cpp in Sources */,
+				08E7C0BF212718D700C7410A /* bed_file.cpp in Sources */,
 				089F3FEA20E68F5B00AE21E6 /* strict_cpp_re.inc in Sources */,
 				085D3A7C2121226E0042BAD3 /* bim_file.cpp in Sources */,
 				0868EF9120D7FA7500711306 /* gplus.cpp in Sources */,

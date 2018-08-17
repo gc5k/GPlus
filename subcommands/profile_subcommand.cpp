@@ -12,6 +12,7 @@
 #include "data/score_file.h"
 #include "data/bim_file.h"
 #include "data/fam_file.h"
+#include "data/bed_file.h"
 
 using std::string;
 namespace po = boost::program_options;
@@ -35,6 +36,9 @@ void ProfileSubcommand::Execute() {
   string file_name = GetOptionValue<string>("file");
   auto bim_file = BimFile::Read(file_name + ".bim");
   auto fam_file = FamFile::Read(file_name + ".fam");
+  auto bed_file = BedFile::Read(file_name + ".bed",
+                                bim_file->GetSnpCount(),
+                                fam_file->GetSampleCount());
 }
 
 }  // namespace gplus

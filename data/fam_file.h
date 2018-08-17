@@ -37,10 +37,12 @@ class FamFile {
 
   static std::shared_ptr<FamFile> Read(const std::string& file_name);
 
+  size_t GetSampleCount() const { return samples_.size(); }
+
  private:
   std::vector<Sample> samples_;
 };
 
-}  // gplus
+}  // namespace gplus
 
 #endif  // GPLUS_DATA_FAM_FILE_H_

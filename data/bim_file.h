@@ -28,6 +28,8 @@ class BimFile {
 
   static std::shared_ptr<BimFile> Read(const std::string& file_name);
 
+  size_t GetSnpCount() const { return snps_.size(); }
+
 private:
   std::vector<Snp> snps_;
 };
