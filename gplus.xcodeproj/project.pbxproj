@@ -14030,6 +14030,7 @@
 		08B6F84F20E68303002AB59A /* xp_compat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xp_compat.h; sourceTree = "<group>"; };
 		08BA9860210BFBD100B461A2 /* executable_path.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = executable_path.cpp; sourceTree = "<group>"; };
 		08BA9861210BFBD100B461A2 /* executable_path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = executable_path.h; sourceTree = "<group>"; };
+		08C335F82127CFA400ECF5ED /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		08E7C0BD212718D700C7410A /* bed_file.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = bed_file.cpp; sourceTree = "<group>"; };
 		08E7C0BE212718D700C7410A /* bed_file.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bed_file.h; sourceTree = "<group>"; };
 		08EA71CB20F430FD00B6781A /* libboost_chrono.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libboost_chrono.a; sourceTree = "<group>"; };
@@ -14155,6 +14156,7 @@
 				0864167620D85BE6007F62D8 /* lib */,
 				0868EF8E20D7FA7500711306 /* Products */,
 				0864167C20D85CAD007F62D8 /* Frameworks */,
+				08C335F82127CFA400ECF5ED /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
