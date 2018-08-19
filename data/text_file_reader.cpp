@@ -119,25 +119,25 @@ int TextFileReader::ReadInt(const std::string& row_name,
               << column_name << " must be an integer.";
     exit(EXIT_FAILURE);
   } catch (std::out_of_range) {
-    GPLUS_LOG << "SNP " << row_name << " has a " << column_name << " value "
+    GPLUS_LOG << row_name << " has a " << column_name << " value "
               << value << " which is out the range of program integers.";
     exit(EXIT_FAILURE);
   }
 }
 
-char TextFileReader::ReadAlleleForSnp(const std::string& snp_name,
-                                      const std::string& column_value) const {
-  if ("A" != column_value && "T" != column_value &&
-      "C" != column_value && "G" != column_value &&
-      "a" != column_value && "t" != column_value &&
-      "c" != column_value && "g" != column_value) {
+char TextFileReader::ReadAlleleForVariant(const std::string& variant_name,
+                                          const std::string& allele) const {
+  if ("A" != allele && "T" != allele &&
+      "C" != allele && "G" != allele &&
+      "a" != allele && "t" != allele &&
+      "c" != allele && "g" != allele) {
     GPLUS_LOG
-    << "SNP " << snp_name << " has an invalid allele '" << column_value
+    << "VAriant " << variant_name << " has an invalid allele '" << allele
     << "' at line " << line_no_ << " of the " << file_desc_
     << ". An allele must be A, T, C, or G.";
     exit(EXIT_FAILURE);
   }
-  return toupper(column_value[0]);
+  return toupper(allele[0]);
 }
 
 }  // namespace gplus

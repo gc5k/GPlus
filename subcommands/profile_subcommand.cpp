@@ -37,7 +37,7 @@ void ProfileSubcommand::Execute() {
   auto bim_file = BimFile::Read(file_name + ".bim");
   auto fam_file = FamFile::Read(file_name + ".fam");
   auto bed_file = BedFile::Read(file_name + ".bed",
-                                bim_file->GetSnpCount(),
+                                bim_file->GetVariantCount(),
                                 fam_file->GetSampleCount());
 }
 

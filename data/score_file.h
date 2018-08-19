@@ -11,7 +11,7 @@ namespace gplus {
 
 class ScoreFile {
  public:
-  struct Snp {
+  struct Variant {
     std::string name;
     char ref;
   };
@@ -21,7 +21,7 @@ class ScoreFile {
  private:
   std::string file_name_;
   std::vector<std::string> score_names_;
-  std::vector<Snp> snps_;
+  std::vector<Variant> variants_;
   std::vector<std::vector<float>> score_values_;
 };
 

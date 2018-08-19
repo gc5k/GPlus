@@ -48,8 +48,8 @@ class TextFileReader {
               int min = std::numeric_limits<int>::min(),
               int max = std::numeric_limits<int>::max()) const;
 
-  char ReadAlleleForSnp(const std::string& snp_name,
-                        const std::string& column_value) const;
+  char ReadAlleleForVariant(const std::string& variant_name,
+                            const std::string& column_value) const;
 
  private:
   bool ReadNonEmptyLine();

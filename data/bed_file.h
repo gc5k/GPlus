@@ -17,7 +17,7 @@ namespace gplus {
 class BedFile {
  public:
   static std::shared_ptr<BedFile> Read(const std::string& file_name,
-                                       size_t snp_count,
+                                       size_t variant_count,
                                        size_t sample_count);
 };
 

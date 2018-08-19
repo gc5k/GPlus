@@ -14042,6 +14042,7 @@
 		08EA71D120F4310000B6781A /* libboost_log_setup.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libboost_log_setup.a; sourceTree = "<group>"; };
 		08EA71D220F4310100B6781A /* libboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libboost_filesystem.a; sourceTree = "<group>"; };
 		08EA71D320F4310100B6781A /* libboost_thread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libboost_thread.a; sourceTree = "<group>"; };
+		08F4EE8A21294D3000A390E2 /* test.ped */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.ped; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -14082,6 +14083,7 @@
 				08429A71211E825300E55F67 /* scores.txt */,
 				085D3A7D212124D50042BAD3 /* test.bim */,
 				08308FF3212471DD0031E7C1 /* test.fam */,
+				08F4EE8A21294D3000A390E2 /* test.ped */,
 			);
 			path = examples;
 			sourceTree = "<group>";

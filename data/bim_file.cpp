@@ -25,21 +25,21 @@ std::shared_ptr<BimFile> BimFile::Read(const std::string &file_name) {
     const vector<string>& columns = reader.GetColumns();
     auto iter = columns.cbegin();
 
-    Snp snp;
+    Variant variant;
     auto& ch = *iter++;
-    snp.name = *iter++;
-    snp.chromosome = reader.ReadInt(snp.name, "chromosome", ch);
-    snp.dist = reader.ReadInt(snp.name, "dist", *iter++);
-    snp.bp = reader.ReadInt(snp.name, "bp", *iter++);
-    snp.allele1 = reader.ReadAlleleForSnp(snp.name, *iter++);
-    snp.allele2 = reader.ReadAlleleForSnp(snp.name, *iter++);
-    bim_file->snps_.push_back(snp);
+    variant.name = *iter++;
+    variant.chromosome = reader.ReadInt(variant.name, "chromosome", ch);
+    variant.dist = reader.ReadInt(variant.name, "dist", *iter++);
+    variant.bp = reader.ReadInt(variant.name, "bp", *iter++);
+    variant.allele1 = reader.ReadAlleleForVariant(variant.name, *iter++);
+    variant.allele2 = reader.ReadAlleleForVariant(variant.name, *iter++);
+    bim_file->variants_.push_back(variant);
   }
 
-  if (bim_file->snps_.empty()) {
+  if (bim_file->variants_.empty()) {
     GPLUS_LOG
     << "The bim file '" << file_name
-    << "' contains just a title line without any SNP data.";
+    << "' contains just a title line without any variant data.";
     exit(EXIT_FAILURE);
   }
 

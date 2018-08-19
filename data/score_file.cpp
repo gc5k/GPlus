@@ -29,18 +29,18 @@ std::shared_ptr<ScoreFile> ScoreFile::ReadScoreFile() {
   std::copy(columns.cbegin() + 2, columns.cend(),
             std::back_inserter(score_names));
 
-  // SNPs and score values
-  vector<Snp>& snps = score_file->snps_;
+  // variants and score values
+  vector<Variant>& variants = score_file->variants_;
   vector<vector<float>>& score_values = score_file->score_values_;
   score_values.resize(score_names.size());
   while (reader.ReadColumns()) {
     auto col_iter = columns.cbegin();
 
-    // SNP name and reference allele
-    Snp snp;
-    snp.name = *col_iter++;
-    snp.ref = reader.ReadAlleleForSnp(snp.name, *col_iter++);
-    snps.push_back(snp);
+    // variant name and reference allele
+    Variant variant;
+    variant.name = *col_iter++;
+    variant.ref = reader.ReadAlleleForVariant(variant.name, *col_iter++);
+    variants.push_back(variant);
 
     // score values
     auto score_vectors_iter = score_values.begin();
@@ -54,12 +54,12 @@ std::shared_ptr<ScoreFile> ScoreFile::ReadScoreFile() {
           (score_vectors_iter++)->push_back(score_value);
         } catch (std::invalid_argument) {
           GPLUS_LOG
-          << "SNP " << snp.name << " has an invalid score value '"
+          << "Variant " << variant.name << " has an invalid score value '"
           << col_val << "'. A score value must be a floating point number.";
           exit(EXIT_FAILURE);
         } catch (std::out_of_range) {
           GPLUS_LOG
-          << "SNP " << snp.name << " has a score value " << col_val
+          << "Variant " << variant.name << " has a score value " << col_val
           << " which is out of the range of floating point numbers.";
           exit(EXIT_FAILURE);
         }
@@ -67,10 +67,10 @@ std::shared_ptr<ScoreFile> ScoreFile::ReadScoreFile() {
     }
   }
 
-  if (snps.empty()) {
+  if (variants.empty()) {
     GPLUS_LOG
     << "The score file '" << file_name
-    << "' contains just a title line without any SNP score data.";
+    << "' contains just a title line without any score data.";
     exit(EXIT_FAILURE);
   }
 

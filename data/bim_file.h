@@ -17,7 +17,7 @@ namespace gplus {
 
 class BimFile {
  public:
-  struct Snp {
+  struct Variant {
     int chromosome;
     std::string name;
     int dist;
@@ -28,10 +28,10 @@ class BimFile {
 
   static std::shared_ptr<BimFile> Read(const std::string& file_name);
 
-  size_t GetSnpCount() const { return snps_.size(); }
+  size_t GetVariantCount() const { return variants_.size(); }
 
 private:
-  std::vector<Snp> snps_;
+  std::vector<Variant> variants_;
 };
 
 }  // namespace gplus
