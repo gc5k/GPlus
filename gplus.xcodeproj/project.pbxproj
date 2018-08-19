@@ -13464,6 +13464,7 @@
 		08ABB6792110BA1700FB8878 /* score_file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = score_file.cpp; sourceTree = "<group>"; };
 		08ABB67A2110BA1700FB8878 /* score_file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = score_file.h; sourceTree = "<group>"; };
 		08AF819020D958EF001B957E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		08B492602129B5B000C55BD3 /* test.bed */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.bed; sourceTree = "<group>"; };
 		08B6F56A20E68302002AB59A /* annotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = annotation.h; sourceTree = "<group>"; };
 		08B6F56B20E68302002AB59A /* annotation_list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = annotation_list.h; sourceTree = "<group>"; };
 		08B6F56C20E68302002AB59A /* client_argv_handling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = client_argv_handling.h; sourceTree = "<group>"; };
@@ -14084,6 +14085,7 @@
 				085D3A7D212124D50042BAD3 /* test.bim */,
 				08308FF3212471DD0031E7C1 /* test.fam */,
 				08F4EE8A21294D3000A390E2 /* test.ped */,
+				08B492602129B5B000C55BD3 /* test.bed */,
 			);
 			path = examples;
 			sourceTree = "<group>";
