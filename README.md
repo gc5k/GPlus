@@ -9,7 +9,7 @@ To build on Windows, you need to download and build the Program Options library 
 
 Please follow [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html) with the following exceptions:
 
-- The following formats are allowed because they are the default and even the only available behaviors of IDEs, especially Xcode. And I don't want to add too much burden on Guobo:
+- The following formats are allowed because they are the default and even the only available behaviors of IDEs, especially Xcode. And we don't want to add too much burden on team members:
   - Indentations of namespace are allowed.
   - Therefore, each line of text is allowed to reach the limit of 90 characters long, taking account of nested namespace.
   - The `public:`, `protected:`, and `private:` keywords are fine to not indent.
