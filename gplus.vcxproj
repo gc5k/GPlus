@@ -48,8 +48,11 @@
     <ClCompile Include="util\program_options.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="examples\test.bed" />
     <None Include="examples\test.bim" />
     <None Include="examples\test.fam" />
+    <None Include="examples\test.map" />
+    <None Include="examples\test.ped" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>

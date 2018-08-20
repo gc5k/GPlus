@@ -108,6 +108,15 @@
     <None Include="examples\test.fam">
       <Filter>Examples</Filter>
     </None>
+    <None Include="examples\test.bed">
+      <Filter>Examples</Filter>
+    </None>
+    <None Include="examples\test.map">
+      <Filter>Examples</Filter>
+    </None>
+    <None Include="examples\test.ped">
+      <Filter>Examples</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="examples\scores.txt">
