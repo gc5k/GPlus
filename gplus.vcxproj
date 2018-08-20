@@ -22,6 +22,7 @@
     <ClInclude Include="base\global_variables.h" />
     <ClInclude Include="base\subcommand.h" />
     <ClInclude Include="base\subcommand_list.h" />
+    <ClInclude Include="data\bed_file.h" />
     <ClInclude Include="data\bim_file.h" />
     <ClInclude Include="data\fam_file.h" />
     <ClInclude Include="data\score_file.h" />
@@ -35,6 +36,7 @@
   <ItemGroup>
     <ClCompile Include="base\gplus.cpp" />
     <ClCompile Include="base\subcommand_list.cpp" />
+    <ClCompile Include="data\bed_file.cpp" />
     <ClCompile Include="data\bim_file.cpp" />
     <ClCompile Include="data\fam_file.cpp" />
     <ClCompile Include="data\score_file.cpp" />

@@ -58,6 +58,9 @@
     <ClInclude Include="base\global_variables.h">
       <Filter>Sources\base</Filter>
     </ClInclude>
+    <ClInclude Include="data\bed_file.h">
+      <Filter>Sources\data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="base\gplus.cpp">
@@ -91,6 +94,9 @@
       <Filter>Sources\data</Filter>
     </ClCompile>
     <ClCompile Include="data\text_file_reader.cpp">
+      <Filter>Sources\data</Filter>
+    </ClCompile>
+    <ClCompile Include="data\bed_file.cpp">
       <Filter>Sources\data</Filter>
     </ClCompile>
   </ItemGroup>
