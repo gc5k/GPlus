@@ -18,10 +18,9 @@ namespace gplus {
 
 std::shared_ptr<BimFile> BimFile::Read(const std::string &file_name) {
   TextFileReader reader("bim", file_name);
-  reader.ReadColumns(kColumnCountExact, 6);
   std::shared_ptr<BimFile> bim_file(new BimFile);
 
-  while (reader.ReadColumns()) {
+  while (reader.ReadColumns(kColumnCountExact, 6)) {
     const vector<string>& columns = reader.GetColumns();
     auto iter = columns.cbegin();
 
