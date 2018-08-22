@@ -28,7 +28,7 @@ class BimFile {
 
   static std::shared_ptr<BimFile> Read(const std::string& file_name);
 
-  size_t GetVariantCount() const { return variants_.size(); }
+  int GetVariantCount() const { return static_cast<int>(variants_.size()); }
 
 private:
   std::vector<Variant> variants_;

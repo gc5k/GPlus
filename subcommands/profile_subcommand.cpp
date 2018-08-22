@@ -31,6 +31,11 @@ void ProfileSubcommand::AddOptionsDesc(OptionsDesc* opts_desc) const {
    "filename (no ext) of the output files");
 }
 
+  class A {
+  public:
+    A() {}
+  };
+
 void ProfileSubcommand::Execute() {
   auto score_file = ScoreFile::ReadScoreFile();
   string file_name = GetOptionValue<string>("file");

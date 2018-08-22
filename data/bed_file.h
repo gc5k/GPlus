@@ -9,16 +9,28 @@
 #ifndef GPLUS_DATA_BED_FILE_H_
 #define GPLUS_DATA_BED_FILE_H_
 
+#include <cmath>
 #include <memory>
 #include <string>
 
 namespace gplus {
 
 class BedFile {
- public:
+public:
   static std::shared_ptr<BedFile> Read(const std::string& file_name,
-                                       size_t variant_count,
-                                       size_t sample_count);
+                                       int variant_count,
+                                       int sample_count);
+
+  static int GetByteCount(int genotype_count) {
+    return (genotype_count + 3) / 4;  // round up
+  }
+  
+private:
+  explicit BedFile(int variant_count, int sample_count);
+  
+  int variant_count_;
+  int sample_count_;
+  std::shared_ptr<std::shared_ptr<char>> genotypes_;
 };
 
 }  // namespace gplus
