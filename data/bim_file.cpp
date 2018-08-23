@@ -8,6 +8,7 @@
 
 #include "data/bim_file.h"
 
+#include "base/global_variables.h"
 #include "data/text_file_reader.h"
 #include "util/log.h"
 
@@ -42,6 +43,7 @@ std::shared_ptr<BimFile> BimFile::Read(const std::string &file_name) {
     exit(EXIT_FAILURE);
   }
 
+  gvar->bim_file = bim_file;
   return bim_file;
 }
 

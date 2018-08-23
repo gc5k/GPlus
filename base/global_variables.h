@@ -9,11 +9,14 @@
 #ifndef GPLUS_BASE_GLOBAL_VARIABLES_H_
 #define GPLUS_BASE_GLOBAL_VARIABLES_H_
 
-#include <string>
+#include <memory>
+
+#include "data/bim_file.h"
 
 namespace  gplus {
 
 struct GlobalVariables {
+  std::shared_ptr<BimFile> bim_file;
 };
 
 extern GlobalVariables* gvar;

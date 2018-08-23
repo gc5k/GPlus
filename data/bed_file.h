@@ -30,6 +30,7 @@ private:
   
   int variant_count_;
   int sample_count_;
+  int byte_count_per_variant_;
   std::shared_ptr<std::shared_ptr<char>> genotypes_;
 };
 
