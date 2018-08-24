@@ -9,11 +9,24 @@ To build on Windows, you need to download and build the Program Options library 
 
 Please follow [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html) with the following exceptions:
 
-- The following formats are allowed because they are the default and even the only available behaviors of IDEs, especially Xcode. And we don't want to add too much burden on team members:
+- The default formatting, especially those formatting which cannot be adjusted by IDE options/preferences, applied by Xcode and Visual Studio is allowed. Therefore, the following formatting are allowed because they are the default and even the only available behaviors of IDEs, especially Xcode. And we don't want to add too much burden on team members:
   - Indentations of namespace are allowed.
   - Therefore, each line of text is allowed to reach the limit of 90 characters long, taking account of nested namespace.
   - The `public:`, `protected:`, and `private:` keywords are fine to not indent.
   - Trailing whitespace at the end of a line is allowed.
+  - Constructor initializer lists can be formatted as:
+  ```c++
+    MyClass::MyClass(int var)
+    : some_var_(var)
+    , some_other_var_(var + 1) {
+    for (int i = 0; i < variant_count; i++) {
+      auto& genotypes_of_variant = genotypes_.get()[i];
+      genotypes_of_variant.reset(new char[byte_count_per_variant_],
+                                 std::default_delete<char[]>());
+      std::memset(genotypes_of_variant.get(), 0, byte_count_per_variant_);
+    }
+  }
+  ```
 - Use of Boost libraries and C++17 are encouraged to try their new and ambitious methodology, as long as they don't complicate the business code.
 
 [`cpplint.sh`](https://github.com/gc5k/gplus/blob/master/cpplint.sh) is used to check whether all or specific source files follow [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html). Notice that it uses the `-printf` option of `find` to ignore the `third_party` directory. This option is only available in GNU `find` but not in BSD `find` which is default on Mac OS X. Type `brew install findutils` in terminal to install GNU `find` on Mac OS X. See [this post](https://superuser.com/a/293200/95715) for more details.
