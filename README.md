@@ -19,13 +19,8 @@ Please follow [Google C++ Style Guide](https://google.github.io/styleguide/cppgu
     MyClass::MyClass(int var)
     : some_var_(var)
     , some_other_var_(var + 1) {
-    for (int i = 0; i < variant_count; i++) {
-      auto& genotypes_of_variant = genotypes_.get()[i];
-      genotypes_of_variant.reset(new char[byte_count_per_variant_],
-                                 std::default_delete<char[]>());
-      std::memset(genotypes_of_variant.get(), 0, byte_count_per_variant_);
+      DoSomething();
     }
-  }
   ```
 - Use of Boost libraries and C++17 are encouraged to try their new and ambitious methodology, as long as they don't complicate the business code.
 
