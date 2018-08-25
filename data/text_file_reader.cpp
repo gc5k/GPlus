@@ -125,19 +125,19 @@ int TextFileReader::ReadInt(const std::string& row_name,
   }
 }
 
-char TextFileReader::ReadAlleleForVariant(const std::string& variant_name,
-                                          const std::string& allele) const {
-  if ("A" != allele && "T" != allele &&
-      "C" != allele && "G" != allele &&
-      "a" != allele && "t" != allele &&
-      "c" != allele && "g" != allele) {
-    GPLUS_LOG
-    << "VAriant " << variant_name << " has an invalid allele '" << allele
-    << "' at line " << line_no_ << " of the " << file_desc_
-    << ". An allele must be A, T, C, or G.";
-    exit(EXIT_FAILURE);
+  string TextFileReader::CheckAllele(const string& variant_name,
+                                              const string& allele) const {
+    if ("A" != allele && "T" != allele &&
+        "C" != allele && "G" != allele &&
+        "a" != allele && "t" != allele &&
+        "c" != allele && "g" != allele) {
+      GPLUS_LOG
+      << "VAriant " << variant_name << " has an invalid allele '" << allele
+      << "' at line " << line_no_ << " of the " << file_desc_
+      << ". An allele must be A, T, C, or G.";
+      exit(EXIT_FAILURE);
+    }
+    return allele;
   }
-  return toupper(allele[0]);
-}
 
 }  // namespace gplus

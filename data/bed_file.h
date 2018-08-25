@@ -25,12 +25,24 @@ public:
     return (genotype_count + 3) / 4;  // round up
   }
   
+  int GetGenotype(size_t variant_index, size_t sample_index) const {
+    auto genotypes_of_variant = genotypes_.get()[variant_index];
+    auto byte_index = sample_index >> 2;
+    char byte = genotypes_of_variant.get()[byte_index];
+    int bit_index = static_cast<int>((sample_index & 0x3) << 1);
+    int genotype = (byte >> bit_index) & 0x3;
+    return genotype;
+  }
+  
 private:
   explicit BedFile(int variant_count, int sample_count);
-  
+
   int variant_count_;
   int sample_count_;
   int byte_count_per_variant_;
+  
+  // dimension 1: variants
+  // dimension 2: genotypes of all the samples of a variant
   std::shared_ptr<std::shared_ptr<char>> genotypes_;
 };
 

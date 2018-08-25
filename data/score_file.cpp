@@ -4,7 +4,9 @@
 
 #include <algorithm>  // copy
 #include <iterator>  // back_inserter
+
 #include "data/text_file_reader.h"
+#include "util/math.h"
 #include "util/program_options.h"
 
 using std::string;
@@ -31,6 +33,7 @@ std::shared_ptr<ScoreFile> ScoreFile::ReadScoreFile() {
 
   // variants and score values
   vector<Variant>& variants = score_file->variants_;
+  std::map<string, int>& variant_index_map = score_file->variant_index_map_;
   vector<vector<float>>& score_values = score_file->score_values_;
   score_values.resize(score_names.size());
   while (reader.ReadColumns()) {
@@ -39,18 +42,26 @@ std::shared_ptr<ScoreFile> ScoreFile::ReadScoreFile() {
     // variant name and reference allele
     Variant variant;
     variant.name = *col_iter++;
-    variant.ref = reader.ReadAlleleForVariant(variant.name, *col_iter++);
+    variant.ref = reader.CheckAllele(variant.name, *col_iter++);
     variants.push_back(variant);
+    if (variant_index_map.count(variant.name) > 0) {
+      GPLUS_LOG << "Variant " << variant.name << " is duplicated in score file.";
+      exit(EXIT_FAILURE);
+    }
+    variant_index_map[variant.name] = reader.GetCurrentRowNumber() - 2;
 
     // score values
     auto score_vectors_iter = score_values.begin();
     while (col_iter != columns.cend()) {
       const string& col_val = *col_iter++;
       if (reader.IsMissingValue(col_val)) {
-        (score_vectors_iter++)->push_back(missing_score);
+        (score_vectors_iter++)->push_back(0.0f);
       } else {
         try {
           float score_value = stof(col_val);
+          if (equals(score_value, missing_score)) {
+            score_value = 0.0f;
+          }
           (score_vectors_iter++)->push_back(score_value);
         } catch (std::invalid_argument) {
           GPLUS_LOG

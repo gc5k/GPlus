@@ -35,6 +35,9 @@ class TextFileReader {
     assert(row_no_ > 0);
     return ReadColumns(kColumnCountExact, column_count_required_);
   }
+  
+  int GetCurrentRowNumber() const { return row_no_; }
+  
   std::string GetRowLocationForLog() const;
   bool IsMissingValue(const std::string& val) const {
     return std::find(missing_value_marks_.begin(),
@@ -48,8 +51,8 @@ class TextFileReader {
               int min = std::numeric_limits<int>::min(),
               int max = std::numeric_limits<int>::max()) const;
 
-  char ReadAlleleForVariant(const std::string& variant_name,
-                            const std::string& column_value) const;
+  std::string CheckAllele(const std::string& variant_name,
+                                   const std::string& column_value) const;
 
  private:
   bool ReadNonEmptyLine();

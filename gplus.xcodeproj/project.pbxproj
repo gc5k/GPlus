@@ -14043,6 +14043,7 @@
 		08EA71D120F4310000B6781A /* libboost_log_setup.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libboost_log_setup.a; sourceTree = "<group>"; };
 		08EA71D220F4310100B6781A /* libboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libboost_filesystem.a; sourceTree = "<group>"; };
 		08EA71D320F4310100B6781A /* libboost_thread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libboost_thread.a; sourceTree = "<group>"; };
+		08F3BAF62130F38D00DEC93D /* math.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = math.h; sourceTree = "<group>"; };
 		08F4EE8A21294D3000A390E2 /* test.ped */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.ped; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -38475,6 +38476,7 @@
 				08BA9861210BFBD100B461A2 /* executable_path.h */,
 				083EB8342115876500EE4D01 /* log.cpp */,
 				083EB8352115876500EE4D01 /* log.h */,
+				08F3BAF62130F38D00DEC93D /* math.h */,
 			);
 			path = util;
 			sourceTree = "<group>";

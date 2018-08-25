@@ -128,15 +128,13 @@ int main(int argc, const char* argv[]) {
   gplus::kArgv0 = argv[0];
 
   try {
-    gplus::InitLogging();
 #ifdef USE_CRASHPAD
     gplus::StartCrashHandler();
 #endif  // USE_CRASHPAD
     auto subcmd_name = argv[1];
     auto subcmd = gplus::FindSubcommand(subcmd_name);
     if (nullptr == subcmd) {
-      GPLUS_LOG
-      << "No subcommand named as '" << subcmd_name << "'." << std::endl;
+      std::cerr << "No subcommand named as '" << subcmd_name << "'." << std::endl;
       return 1;
     }
 
@@ -152,6 +150,10 @@ int main(int argc, const char* argv[]) {
     auto& prog_args = gplus::GetSpecifiedOptions();
     po::store(parsed_options, prog_args);
     po::notify(prog_args);
+    
+    // Logging initialization should follow the parsing of command-line arguments
+    // because --out option is needed to initialize logging.
+    gplus::InitLogging();
 
     subcmd->Execute();
   } catch (const std::exception& e) {

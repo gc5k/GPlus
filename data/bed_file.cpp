@@ -8,7 +8,6 @@
 
 #include "data/bed_file.h"
 
-#include <cstring>
 #include <fstream>
 
 #include "base/global_variables.h"
@@ -26,7 +25,6 @@ namespace gplus {
       auto& genotypes_of_variant = genotypes_.get()[i];
       genotypes_of_variant.reset(new char[byte_count_per_variant_],
                                  std::default_delete<char[]>());
-      std::memset(genotypes_of_variant.get(), 0, byte_count_per_variant_);
     }
   }
 

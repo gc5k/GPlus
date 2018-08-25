@@ -31,8 +31,8 @@ std::shared_ptr<BimFile> BimFile::Read(const std::string &file_name) {
     variant.chromosome = reader.ReadInt(variant.name, "chromosome", ch);
     variant.dist = reader.ReadInt(variant.name, "dist", *iter++);
     variant.bp = reader.ReadInt(variant.name, "bp", *iter++);
-    variant.allele1 = reader.ReadAlleleForVariant(variant.name, *iter++);
-    variant.allele2 = reader.ReadAlleleForVariant(variant.name, *iter++);
+    variant.allele1 = reader.CheckAllele(variant.name, *iter++);
+    variant.allele2 = reader.CheckAllele(variant.name, *iter++);
     bim_file->variants_.push_back(variant);
   }
 

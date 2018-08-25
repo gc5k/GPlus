@@ -38,6 +38,7 @@ class FamFile {
   static std::shared_ptr<FamFile> Read(const std::string& file_name);
 
   int GetSampleCount() const { return static_cast<int>(samples_.size()); }
+  const std::vector<Sample>& GetSamples() const { return samples_; }
 
  private:
   std::vector<Sample> samples_;

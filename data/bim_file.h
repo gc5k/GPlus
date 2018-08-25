@@ -22,12 +22,13 @@ class BimFile {
     std::string name;
     int dist;
     int bp;
-    char allele1;
-    char allele2;
+    std::string allele1;
+    std::string allele2;
   };
 
   static std::shared_ptr<BimFile> Read(const std::string& file_name);
 
+  const std::vector<Variant>& GetVariants() const { return variants_; }
   Variant GetVariant(int index) const { return variants_[index]; }
   int GetVariantCount() const { return static_cast<int>(variants_.size()); }
 
