@@ -4,6 +4,7 @@ gplus 20*
 *.log
 x64
 *~
+*.swp
 .vs
 *.vcxproj.user
 lib/win/libboost*
