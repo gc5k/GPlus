@@ -25,7 +25,7 @@ namespace gplus {
 
 void ProfileSubcommand::AddOptionsDesc(OptionsDesc* opts_desc) const {
   opts_desc->add_options()
-  ("file,f", po::value<string>(),
+  ("bfile,f", po::value<string>(),
    "filename (no ext) of the plink format input data")
   ("score,s", po::value<string>(), "score file")
   ("missing-score",
@@ -37,7 +37,7 @@ void ProfileSubcommand::AddOptionsDesc(OptionsDesc* opts_desc) const {
 
 void ProfileSubcommand::Execute() {
   auto score_file = ScoreFile::ReadScoreFile();
-  string file_name = GetOptionValue<string>("file");
+  string file_name = GetOptionValue<string>("bfile");
   auto fam_file = FamFile::Read(file_name + ".fam");
   auto bim_file = BimFile::Read(file_name + ".bim");
   auto bed_file = BedFile::Read(file_name + ".bed",
