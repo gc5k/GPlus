@@ -36,7 +36,7 @@ void ProfileSubcommand::AddOptionsDesc(OptionsDesc* opts_desc) const {
 }
 
 void ProfileSubcommand::Execute() {
-  auto score_file = ScoreFile::ReadScoreFile();
+  ReadScoreFile();
   string file_name = GetOptionValue<string>("bfile");
   auto fam_file = FamFile::Read(file_name + ".fam");
   auto bim_file = BimFile::Read(file_name + ".bim");
@@ -44,9 +44,9 @@ void ProfileSubcommand::Execute() {
                                 bim_file->GetVariantCount(),
                                 fam_file->GetSampleCount());
   
-  if (score_file->GetVariantCount() != bim_file->GetVariantCount()) {
+  if (score_file->variants.size() != bim_file->GetVariantCount()) {
     GPLUS_LOG
-    << "The score file contains " << score_file->GetVariantCount()
+    << "The score file contains " << score_file->variants.size()
     << " variant(s), but the bim file contains " << bim_file->GetVariantCount()
     << " variant(s).";
     exit(EXIT_FAILURE);
@@ -62,7 +62,7 @@ void ProfileSubcommand::Execute() {
   
   // Print headers.
   out_file << "FID\tIID";
-  auto& score_names = score_file->GetScoreNames();
+  auto& score_names = score_file->score_names;
   for (auto score_name_iter = score_names.cbegin();
        score_name_iter != score_names.cend(); ++score_name_iter) {
     out_file << "\tSCORE." << *score_name_iter;
@@ -76,7 +76,7 @@ void ProfileSubcommand::Execute() {
     out_file << sample_iter->fam_id << "\t" << sample_iter->iid;
     // Sum up scores of all the variants for each score name.
     for (int score_name_idx = 0; score_name_idx < score_names.size(); ++score_name_idx) {
-      auto& scores = score_file->GetScoreValues(score_name_idx);
+      auto& scores = score_file->score_values[score_name_idx];
       auto& variants_in_bim = bim_file->GetVariants();
       float score_sum = 0.0f;
       for (auto variant_iter_of_bim = variants_in_bim.cbegin();
@@ -86,7 +86,7 @@ void ProfileSubcommand::Execute() {
         auto variant_index_in_bim = variant_iter_of_bim - variants_in_bim.cbegin();
         auto sample_index = sample_iter - samples.cbegin();
         int genotype = bed_file->GetGenotype(variant_index_in_bim, sample_index);
-        auto variant_in_scores = score_file->GetVariant(variant_idx_in_scores);
+        auto variant_in_scores = score_file->variants[variant_idx_in_scores];
         bool allele1_is_ref;
         if (boost::iequals(variant_iter_of_bim->allele1, variant_in_scores.ref)) {
           allele1_is_ref = true;

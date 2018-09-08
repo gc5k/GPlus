@@ -7,7 +7,7 @@ To build on Windows, you need to download and build the Program Options library 
 
 ### Coding Style
 
-Please follow [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html) with the following exceptions:
+We basically (but not strictly) follow [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html), especially there're (not only) such following exceptions:
 
 - The default formatting, especially those formatting which cannot be adjusted by IDE options/preferences, applied by Xcode and Visual Studio is allowed. Therefore, the following formatting are allowed because they are the default and even the only available behaviors of IDEs, especially Xcode. And we don't want to add too much burden on team members:
   - Indentations of namespace are allowed.
@@ -24,4 +24,4 @@ Please follow [Google C++ Style Guide](https://google.github.io/styleguide/cppgu
   ```
 - Use of Boost libraries and C++17 are encouraged to try their new and ambitious methodology, as long as they don't complicate the business code.
 
-[`cpplint.sh`](https://github.com/gc5k/gplus/blob/master/cpplint.sh) is used to check whether all or specific source files follow [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html). Notice that it uses the `-printf` option of `find` to ignore the `third_party` directory. This option is only available in GNU `find` but not in BSD `find` which is default on Mac OS X. Type `brew install findutils` in terminal to install GNU `find` on Mac OS X. See [this post](https://superuser.com/a/293200/95715) for more details.
+[`cpplint.sh`](https://github.com/gc5k/gplus/blob/master/cpplint.sh) is used to check whether all or specific source files follow [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html). But it is modified to adapt the gplus project. Notice that it uses the `-printf` option of `find` to ignore the `third_party` directory. This option is only available in GNU `find` but not in BSD `find` which is default on Mac OS X. Type `brew install findutils` in terminal to install GNU `find` on Mac OS X. See [this post](https://superuser.com/a/293200/95715) for more details.
