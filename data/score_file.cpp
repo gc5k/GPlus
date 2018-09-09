@@ -5,6 +5,7 @@
 #include <algorithm>  // copy
 #include <iterator>  // back_inserter
 
+#include "third_party/boost/format.hpp"
 #include "data/text_file_reader.h"
 #include "util/math.h"
 #include "util/program_options.h"
@@ -29,15 +30,23 @@ namespace gplus {
     reader.ReadColumns(kColumnCountMinimal, 3);
     vector<string>& score_names = score_file->score_names;
     score_names.reserve(columns.size() - 2);
-    std::copy(columns.cbegin() + 2, columns.cend(),
-              std::back_inserter(score_names));
+    const bool no_score_headr = GetSpecifiedOptions().count("no-score-header") > 0;
+    bool waiting_to_parse_first_row = no_score_headr;
+    if (no_score_headr) {
+      for (int i = 2; i < columns.size(); ++i) {
+        score_names.push_back(boost::str(boost::format("S%1%") % (i - 1)));
+      }
+    } else {
+      std::copy(columns.cbegin() + 2, columns.cend(), std::back_inserter(score_names));
+    }
     
     // variants and score values
     vector<ScoreFile::Variant>& variants = score_file->variants;
     std::map<string, int>& variant_index_map = score_file->variant_index_map;
     vector<vector<float>>& score_values = score_file->score_values;
     score_values.resize(score_names.size());
-    while (reader.ReadColumns()) {
+    const int variant_index_offset = no_score_headr ? 1 : 2;
+    while (waiting_to_parse_first_row || reader.ReadColumns()) {
       auto col_iter = columns.cbegin();
       
       // variant name and reference allele
@@ -49,7 +58,7 @@ namespace gplus {
         GPLUS_LOG << "Variant " << variant.name << " is duplicated in score file.";
         exit(EXIT_FAILURE);
       }
-      variant_index_map[variant.name] = reader.GetCurrentRowNumber() - 2;
+      variant_index_map[variant.name] = reader.GetCurrentRowNumber() - variant_index_offset;
       
       // score values
       auto score_vectors_iter = score_values.begin();
@@ -77,6 +86,7 @@ namespace gplus {
           }
         }
       }
+      waiting_to_parse_first_row = false;
     }
     
     if (variants.empty()) {

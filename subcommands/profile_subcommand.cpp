@@ -28,6 +28,7 @@ void ProfileSubcommand::AddOptionsDesc(OptionsDesc* opts_desc) const {
   ("bfile,f", po::value<string>(),
    "filename (no ext) of the plink format input data")
   ("score,s", po::value<string>(), "score file")
+  ("no-score-header", "specify that score file has no header")
   ("missing-score",
    po::value<int>()->default_value(-9), "value of missing scores")
   ("keep-atgc", "take palindromic loci into account")

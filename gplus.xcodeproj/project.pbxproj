@@ -64,6 +64,7 @@
 		08308FF3212471DD0031E7C1 /* test.fam */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.fam; sourceTree = "<group>"; };
 		083EB8342115876500EE4D01 /* log.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = log.cpp; sourceTree = "<group>"; };
 		083EB8352115876500EE4D01 /* log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = log.h; sourceTree = "<group>"; };
+		08412ABA2144B864007A43B0 /* scores_no_header.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = scores_no_header.txt; sourceTree = "<group>"; };
 		08429A71211E825300E55F67 /* scores.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = scores.txt; sourceTree = "<group>"; };
 		084B277221049BC900BD0BE8 /* profile_subcommand.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = profile_subcommand.cpp; sourceTree = "<group>"; };
 		084B277321049BC900BD0BE8 /* profile_subcommand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = profile_subcommand.h; sourceTree = "<group>"; };
@@ -14083,6 +14084,7 @@
 			isa = PBXGroup;
 			children = (
 				08429A71211E825300E55F67 /* scores.txt */,
+				08412ABA2144B864007A43B0 /* scores_no_header.txt */,
 				085D3A7D212124D50042BAD3 /* test.bim */,
 				08308FF3212471DD0031E7C1 /* test.fam */,
 				08F4EE8A21294D3000A390E2 /* test.ped */,
