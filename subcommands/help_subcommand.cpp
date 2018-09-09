@@ -73,10 +73,9 @@ static void PrintSubcommandList() {
 }
 
 void HelpSubcommand::Execute() {
-  auto & prog_args = GetSpecifiedOptions();
-  if (prog_args.count("subcmd")) {
+  if (prog_args()->count("subcmd")) {
     // Pring help message of the subcommand.
-    auto subcmd_name = prog_args["subcmd"].as<std::string>();
+    auto subcmd_name = (*prog_args())["subcmd"].as<std::string>();
     auto subcmd = FindSubcommand(subcmd_name.c_str());
     if (subcmd == nullptr) {
       cerr << "Cannot find subcommand named '" << subcmd_name << "'." << endl;

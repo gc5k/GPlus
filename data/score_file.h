@@ -29,7 +29,7 @@ namespace gplus {
     // dimension 2: score values of all the variants or ref alleles of a score name
     std::vector<std::vector<float>> score_values;
 
-    int GetVariantIndex(const std::string& name) {
+    int GetVariantIndex(const std::string& name) const {
       auto iter = variant_index_map.find(name);
       if (variant_index_map.end() == iter) {
         GPLUS_LOG << "Cannot find variant " << name << " in score file.";
@@ -39,7 +39,7 @@ namespace gplus {
     }
   };
   
-  extern ScoreFile* score_file;
+  ScoreFile* score_file();
   
   void ReadScoreFile();
 }  // namespace gplus

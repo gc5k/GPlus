@@ -8,9 +8,9 @@ namespace gplus {
 
 const char* kArgv0;
 
-po::variables_map& GetSpecifiedOptions() {
-  static po::variables_map* const args = new po::variables_map;
-  return *args;
+po::variables_map* prog_args() {
+  static po::variables_map* const ret = new po::variables_map;
+  return ret;
 }
 
 }  // namespace gplus

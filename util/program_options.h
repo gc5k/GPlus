@@ -17,16 +17,15 @@ namespace program_options = boost::program_options;
 typedef program_options::options_description OptionsDesc;
 typedef program_options::positional_options_description PositionalOptionsDesc;
 
-program_options::variables_map& GetSpecifiedOptions();
+program_options::variables_map* prog_args();
 
 template<typename T>
 T GetOptionValue(const char* option_name) {
-  auto& prog_opts = GetSpecifiedOptions();
-  if (prog_opts.count(option_name) <= 0) {
+  if (prog_args()->count(option_name) <= 0) {
     GPLUS_LOG << "Missing option --" << option_name;
     exit(EXIT_FAILURE);
   }
-  return prog_opts[option_name].as<T>();
+  return (*prog_args())[option_name].as<T>();
 }
 
 }  // namespace gplus

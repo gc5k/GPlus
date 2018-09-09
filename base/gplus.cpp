@@ -147,9 +147,8 @@ int main(int argc, const char* argv[]) {
     subcmd->AddPositionalOptionsDesc(&pd);
     auto parser = po::command_line_parser(argc - 1, subcmd_argv.get());
     auto parsed_options = parser.options(opts_desc).positional(pd).run();
-    auto& prog_args = gplus::GetSpecifiedOptions();
-    po::store(parsed_options, prog_args);
-    po::notify(prog_args);
+    po::store(parsed_options, *gplus::prog_args());
+    po::notify(*gplus::prog_args());
     
     // Logging initialization should follow the parsing of command-line arguments
     // because --out option is needed to initialize logging.

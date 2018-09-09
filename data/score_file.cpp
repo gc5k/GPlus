@@ -14,23 +14,25 @@ using std::string;
 using std::vector;
 
 namespace gplus {
-  ScoreFile* score_file = nullptr;
+  ScoreFile* score_file() {
+    static ScoreFile* const ret = new ScoreFile;
+    return ret;
+  }
 
   void ReadScoreFile() {
-    score_file = new ScoreFile;
     auto file_name = GetOptionValue<std::string>("score");
     auto missing_score = static_cast<float>(GetOptionValue<int>("missing-score"));
     TextFileReader reader("score", file_name);
     const vector<string>& columns = reader.GetColumns();
     
     // file name
-    score_file->file_name = file_name;
+    score_file()->file_name = file_name;
     
     // score names (titles)
     reader.ReadColumns(kColumnCountMinimal, 3);
-    vector<string>& score_names = score_file->score_names;
+    vector<string>& score_names = score_file()->score_names;
     score_names.reserve(columns.size() - 2);
-    const bool no_score_headr = GetSpecifiedOptions().count("no-score-header") > 0;
+    const bool no_score_headr = prog_args()->count("no-score-header") > 0;
     bool waiting_to_parse_first_row = no_score_headr;
     if (no_score_headr) {
       for (int i = 2; i < columns.size(); ++i) {
@@ -41,9 +43,9 @@ namespace gplus {
     }
     
     // variants and score values
-    vector<ScoreFile::Variant>& variants = score_file->variants;
-    std::map<string, int>& variant_index_map = score_file->variant_index_map;
-    vector<vector<float>>& score_values = score_file->score_values;
+    vector<ScoreFile::Variant>& variants = score_file()->variants;
+    std::map<string, int>& variant_index_map = score_file()->variant_index_map;
+    vector<vector<float>>& score_values = score_file()->score_values;
     score_values.resize(score_names.size());
     const int variant_index_offset = no_score_headr ? 1 : 2;
     while (waiting_to_parse_first_row || reader.ReadColumns()) {
