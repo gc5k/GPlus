@@ -15,26 +15,20 @@
 
 namespace gplus {
 
-class BimFile {
- public:
-  struct Variant {
-    int chromosome;
-    std::string name;
-    int dist;
-    int bp;
-    std::string allele1;
-    std::string allele2;
+  struct BimFile {
+    struct Variant {
+      int chromosome;
+      std::string name;
+      int dist;
+      int bp;
+      std::string allele1;
+      std::string allele2;
+    };
+    
+    std::vector<Variant> variants;
   };
-
-  static std::shared_ptr<BimFile> Read(const std::string& file_name);
-
-  const std::vector<Variant>& GetVariants() const { return variants_; }
-  Variant GetVariant(int index) const { return variants_[index]; }
-  int GetVariantCount() const { return static_cast<int>(variants_.size()); }
-
-private:
-  std::vector<Variant> variants_;
-};
+  
+  const BimFile* bim_file();
 
 }  // namespace gplus
 

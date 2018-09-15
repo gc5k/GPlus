@@ -39,9 +39,7 @@ namespace gplus {
     }
   };
   
-  ScoreFile* score_file();
-  
-  void ReadScoreFile();
+  const ScoreFile* score_file();
 }  // namespace gplus
 
 #endif  // GPLUS_DATA_SCORE_FILE_H_

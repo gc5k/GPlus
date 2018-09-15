@@ -37,18 +37,16 @@ void ProfileSubcommand::AddOptionsDesc(OptionsDesc* opts_desc) const {
 }
 
 void ProfileSubcommand::Execute() {
-  ReadScoreFile();
   string file_name = GetOptionValue<string>("bfile");
   auto fam_file = FamFile::Read(file_name + ".fam");
-  auto bim_file = BimFile::Read(file_name + ".bim");
   auto bed_file = BedFile::Read(file_name + ".bed",
-                                bim_file->GetVariantCount(),
+                                bim_file()->variants.size(),
                                 fam_file->GetSampleCount());
   
-  if (score_file()->variants.size() != bim_file->GetVariantCount()) {
+  if (score_file()->variants.size() != bim_file()->variants.size()) {
     GPLUS_LOG
     << "The score file contains " << score_file()->variants.size()
-    << " variant(s), but the bim file contains " << bim_file->GetVariantCount()
+    << " variant(s), but the bim file contains " << bim_file()->variants.size()
     << " variant(s).";
     exit(EXIT_FAILURE);
   }
@@ -78,13 +76,12 @@ void ProfileSubcommand::Execute() {
     // Sum up scores of all the variants for each score name.
     for (int score_name_idx = 0; score_name_idx < score_names.size(); ++score_name_idx) {
       auto& scores = score_file()->score_values[score_name_idx];
-      auto& variants_in_bim = bim_file->GetVariants();
       float score_sum = 0.0f;
-      for (auto variant_iter_of_bim = variants_in_bim.cbegin();
-           variant_iter_of_bim != variants_in_bim.cend(); ++variant_iter_of_bim) {
+      for (auto variant_iter_of_bim = bim_file()->variants.cbegin();
+           variant_iter_of_bim != bim_file()->variants.cend(); ++variant_iter_of_bim) {
         auto variant_idx_in_scores = score_file()->GetVariantIndex(variant_iter_of_bim->name);
         auto score_of_ref = scores[variant_idx_in_scores];
-        auto variant_index_in_bim = variant_iter_of_bim - variants_in_bim.cbegin();
+        auto variant_index_in_bim = variant_iter_of_bim - bim_file()->variants.cbegin();
         auto sample_index = sample_iter - samples.cbegin();
         int genotype = bed_file->GetGenotype(variant_index_in_bim, sample_index);
         auto variant_in_scores = score_file()->variants[variant_idx_in_scores];

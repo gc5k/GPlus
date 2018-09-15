@@ -13459,7 +13459,6 @@
 		089F3FE720E68F5800AE21E6 /* xpressive_static.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = xpressive_static.hpp; sourceTree = "<group>"; };
 		089F3FE820E68F5800AE21E6 /* xpressive_typeof.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = xpressive_typeof.hpp; sourceTree = "<group>"; };
 		089F3FEB20E6905200AE21E6 /* libboost_program_options.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libboost_program_options.a; sourceTree = "<group>"; };
-		08A987A0211896D6002C29E0 /* global_variables.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = global_variables.h; sourceTree = "<group>"; };
 		08ABB6722110B9C100FB8878 /* program_options.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = program_options.cpp; sourceTree = "<group>"; };
 		08ABB6732110B9C100FB8878 /* program_options.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = program_options.h; sourceTree = "<group>"; };
 		08ABB6792110BA1700FB8878 /* score_file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = score_file.cpp; sourceTree = "<group>"; };
@@ -14111,7 +14110,6 @@
 				084D8A5C20E0D8B400D43521 /* subcommand.h */,
 				084D8A5D20E0E3E000D43521 /* subcommand_list.cpp */,
 				084D8A6320E0EF6A00D43521 /* subcommand_list.h */,
-				08A987A0211896D6002C29E0 /* global_variables.h */,
 			);
 			path = base;
 			sourceTree = "<group>";

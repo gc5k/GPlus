@@ -13,7 +13,6 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include "base/global_variables.h"
 #include "base/subcommand_list.h"
 #include "util/executable_path.h"
 #include "util/log.h"
@@ -30,8 +29,6 @@
 namespace po = boost::program_options;
 
 namespace gplus {
-
-GlobalVariables *gvar = new GlobalVariables;
 
 #ifdef USE_CRASHPAD
 static bool StartCrashHandler() {

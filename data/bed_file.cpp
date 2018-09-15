@@ -10,7 +10,7 @@
 
 #include <fstream>
 
-#include "base/global_variables.h"
+#include "data/bim_file.h"
 #include "util/log.h"
 
 namespace gplus {
@@ -51,8 +51,8 @@ std::shared_ptr<BedFile> BedFile::Read(const std::string &file_name,
     // variant major
     for (int variant_idx = 0; variant_idx < variant_count; ++variant_idx) {
       if (!in_stream.read(bed_file->genotypes_.get()[variant_idx].get(),
-                          bed_file->byte_count_per_variant_)) {
-        auto variant = gvar->bim_file->GetVariant(variant_idx);
+                         bed_file->byte_count_per_variant_)) {
+        auto variant = bim_file()->variants[variant_idx];
         GPLUS_LOG
         << "Failed to read the genotypes of variant " << variant.name
         << " (variant no. " << (variant_idx + 1) << ").";
