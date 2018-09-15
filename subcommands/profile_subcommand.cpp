@@ -38,10 +38,9 @@ void ProfileSubcommand::AddOptionsDesc(OptionsDesc* opts_desc) const {
 
 void ProfileSubcommand::Execute() {
   string file_name = GetOptionValue<string>("bfile");
-  auto fam_file = FamFile::Read(file_name + ".fam");
   auto bed_file = BedFile::Read(file_name + ".bed",
                                 bim_file()->variants.size(),
-                                fam_file->GetSampleCount());
+                                fam_file()->samples.size());
   
   if (score_file()->variants.size() != bim_file()->variants.size()) {
     GPLUS_LOG
@@ -69,7 +68,7 @@ void ProfileSubcommand::Execute() {
   out_file << std::endl;
   
   // Calculate and print scores of each sample.
-  auto& samples = fam_file->GetSamples();
+  auto& samples = fam_file()->samples;
   for (auto sample_iter = samples.cbegin();
        sample_iter != samples.cend(); ++sample_iter) {
     out_file << sample_iter->fam_id << "\t" << sample_iter->iid;
