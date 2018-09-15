@@ -37,11 +37,6 @@ void ProfileSubcommand::AddOptionsDesc(OptionsDesc* opts_desc) const {
 }
 
 void ProfileSubcommand::Execute() {
-  string file_name = GetOptionValue<string>("bfile");
-  auto bed_file = BedFile::Read(file_name + ".bed",
-                                bim_file()->variants.size(),
-                                fam_file()->samples.size());
-  
   if (score_file()->variants.size() != bim_file()->variants.size()) {
     GPLUS_LOG
     << "The score file contains " << score_file()->variants.size()
@@ -82,7 +77,7 @@ void ProfileSubcommand::Execute() {
         auto score_of_ref = scores[variant_idx_in_scores];
         auto variant_index_in_bim = variant_iter_of_bim - bim_file()->variants.cbegin();
         auto sample_index = sample_iter - samples.cbegin();
-        int genotype = bed_file->GetGenotype(variant_index_in_bim, sample_index);
+        int genotype = bed_file()->GetGenotype(variant_index_in_bim, sample_index);
         auto variant_in_scores = score_file()->variants[variant_idx_in_scores];
         bool allele1_is_ref;
         if (boost::iequals(variant_iter_of_bim->allele1, variant_in_scores.ref)) {

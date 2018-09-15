@@ -9,7 +9,6 @@
 #ifndef GPLUS_DATA_BIM_FILE_H_
 #define GPLUS_DATA_BIM_FILE_H_
 
-#include <memory>
 #include <string>
 #include <vector>
 
