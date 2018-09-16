@@ -13,6 +13,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+
 #include "base/subcommand_list.h"
 #include "util/executable_path.h"
 #include "util/log.h"
@@ -147,10 +148,11 @@ int main(int argc, const char* argv[]) {
     po::store(parsed_options, *gplus::prog_args());
     po::notify(*gplus::prog_args());
     
-    // Logging initialization should follow the parsing of command-line arguments
-    // because --out option is needed to initialize logging.
-    gplus::InitLogging();
-
+    if (subcmd->GetName() != "help") {
+      // Logging initialization should follow the parsing of command-line arguments
+      // because --out option is needed to initialize logging.
+      gplus::InitLogging();
+    }
     subcmd->Execute();
   } catch (const std::exception& e) {
     GPLUS_LOG << e.what();

@@ -24,16 +24,14 @@ namespace po = boost::program_options;
 namespace gplus {
 
 void ProfileSubcommand::AddOptionsDesc(OptionsDesc* opts_desc) const {
+  AddBedOption(opts_desc);
   opts_desc->add_options()
-  ("bfile,f", po::value<string>(),
-   "filename (no ext) of the plink format input data")
   ("score,s", po::value<string>(), "score file")
   ("no-score-header", "specify that score file has no header")
   ("missing-score",
    po::value<int>()->default_value(-9), "value of missing scores")
-  ("keep-atgc", "take palindromic loci into account")
-  ("out,o", po::value<string>()->default_value("gplus"),
-   "filename (no ext) of the output files");
+  ("keep-atgc", "take palindromic loci into account");
+  AddOutOption(opts_desc);
 }
 
 void ProfileSubcommand::Execute() {
@@ -44,6 +42,8 @@ void ProfileSubcommand::Execute() {
     << " variant(s).";
     exit(EXIT_FAILURE);
   }
+  
+  auto bed = bed_file();
   
   // Create output file.
   auto out_file_name = GetOptionValue<string>("out") + ".profile";
@@ -77,7 +77,7 @@ void ProfileSubcommand::Execute() {
         auto score_of_ref = scores[variant_idx_in_scores];
         auto variant_index_in_bim = variant_iter_of_bim - bim_file()->variants.cbegin();
         auto sample_index = sample_iter - samples.cbegin();
-        int genotype = bed_file()->GetGenotype(variant_index_in_bim, sample_index);
+        int genotype = bed->GetGenotype(variant_index_in_bim, sample_index);
         auto variant_in_scores = score_file()->variants[variant_idx_in_scores];
         bool allele1_is_ref;
         if (boost::iequals(variant_iter_of_bim->allele1, variant_in_scores.ref)) {

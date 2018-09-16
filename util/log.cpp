@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 #include "third_party/boost/date_time/posix_time/posix_time_types.hpp"
 #include "third_party/boost/core/null_deleter.hpp"
@@ -30,6 +31,7 @@ namespace src = boost::log::sources;
 namespace expr = boost::log::expressions;
 namespace sinks = boost::log::sinks;
 namespace attrs = boost::log::attributes;
+using std::string;
 
 namespace gplus {
 
@@ -50,7 +52,7 @@ void InitLogging() {
   sink->locked_backend()->add_stream(stream);
 
   // Add a stream to write log to
-  auto out_file_name = GetOptionValue<std::string>("out");
+  auto out_file_name = GetOptionValue<string>("out");
   auto log_name = out_file_name + ".log";
   auto log_stream = boost::make_shared<std::ofstream>(log_name);
   sink->locked_backend()->add_stream(log_stream);
@@ -61,6 +63,37 @@ void InitLogging() {
   logging::core::get()->add_sink(sink);
 
   logging::add_common_attributes();
+}
+
+std::chrono::steady_clock::time_point GetNow() {
+  return std::chrono::steady_clock::now();
+}
+  
+string PrintDurationSince(std::chrono::steady_clock::time_point tp) {
+  std::stringstream sstrm;
+  auto duration = GetNow() - tp;
+  auto hours = std::chrono::duration_cast<std::chrono::hours>(duration).count();
+  if (hours > 0) {
+    sstrm << hours << (hours == 1 ? " hour" : " hours");
+  }
+  auto minutes = std::chrono::duration_cast<std::chrono::minutes>(duration).count();
+  if (minutes > 0) {
+    if (sstrm.tellg() > 0) {
+      sstrm << ", ";
+    }
+    sstrm << minutes << (minutes == 1 ? " minute" : " minutes");
+  }
+  auto seconds = std::chrono::duration_cast<std::chrono::seconds>(duration).count();
+  if (seconds > 0) {
+    if (sstrm.tellg() > 0) {
+      sstrm << ", ";
+    }
+    sstrm << seconds << (seconds == 1 ? " second" : " seconds");
+  }
+  if (sstrm.tellg() == 0) {
+    sstrm << "less than 1 second";
+  }
+  return sstrm.str();
 }
 
 }  // namespace gplus

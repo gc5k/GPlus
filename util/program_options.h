@@ -27,6 +27,10 @@ T GetOptionValue(const char* option_name) {
   }
   return (*prog_args())[option_name].as<T>();
 }
+  
+// Common Options
+void AddBedOption(OptionsDesc* opts_desc);
+void AddOutOption(OptionsDesc* opts_desc);
 
 }  // namespace gplus
 

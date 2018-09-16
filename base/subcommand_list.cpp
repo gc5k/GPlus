@@ -8,16 +8,19 @@
 #include "base/subcommand_list.h"
 
 #include <cstring>
+
 #include "base/subcommand.h"
 #include "subcommands/profile_subcommand.h"
 #include "subcommands/help_subcommand.h"
+#include "subcommands/test_bed_subcommand.h"
 
 namespace gplus {
 
 Subcommand * const * GetSubcommandList(int * p_subcmd_cnt) {
   static Subcommand * const subcommand_list[] = {
     new ProfileSubcommand,
-    new HelpSubcommand
+    new HelpSubcommand,
+    new TestBedSubcommand
   };
   *p_subcmd_cnt = sizeof(subcommand_list) / sizeof(Subcommand *);
   return subcommand_list;

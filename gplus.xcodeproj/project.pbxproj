@@ -25,6 +25,7 @@
 		0864168C20D86086007F62D8 /* libbsm.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0864168B20D86086007F62D8 /* libbsm.tbd */; };
 		0864169020D863A3007F62D8 /* libobjc.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0864168F20D863A3007F62D8 /* libobjc.tbd */; };
 		0868EF9120D7FA7500711306 /* gplus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0868EF9020D7FA7500711306 /* gplus.cpp */; };
+		087E3565214E0A8600A0769E /* test_bed_subcommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 087E3563214E0A8600A0769E /* test_bed_subcommand.cpp */; };
 		089F3FE920E68F5B00AE21E6 /* cpp_re.inc in Sources */ = {isa = PBXBuildFile; fileRef = 089F3EF520E68F5800AE21E6 /* cpp_re.inc */; };
 		089F3FEA20E68F5B00AE21E6 /* strict_cpp_re.inc in Sources */ = {isa = PBXBuildFile; fileRef = 089F3EF820E68F5800AE21E6 /* strict_cpp_re.inc */; };
 		089F3FEC20E6905200AE21E6 /* libboost_program_options.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 089F3FEB20E6905200AE21E6 /* libboost_program_options.a */; };
@@ -90,6 +91,8 @@
 		0864168F20D863A3007F62D8 /* libobjc.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libobjc.tbd; path = usr/lib/libobjc.tbd; sourceTree = SDKROOT; };
 		0868EF8D20D7FA7500711306 /* gplusd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = gplusd; sourceTree = BUILT_PRODUCTS_DIR; };
 		0868EF9020D7FA7500711306 /* gplus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = gplus.cpp; sourceTree = "<group>"; tabWidth = 2; wrapsLines = 0; };
+		087E3563214E0A8600A0769E /* test_bed_subcommand.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test_bed_subcommand.cpp; sourceTree = "<group>"; };
+		087E3564214E0A8600A0769E /* test_bed_subcommand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = test_bed_subcommand.h; sourceTree = "<group>"; };
 		089F075D20E68F4000AE21E6 /* accumulators.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = accumulators.hpp; sourceTree = "<group>"; };
 		089F075E20E68F4000AE21E6 /* accumulators_fwd.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = accumulators_fwd.hpp; sourceTree = "<group>"; };
 		089F076020E68F4000AE21E6 /* accumulator_base.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = accumulator_base.hpp; sourceTree = "<group>"; };
@@ -14099,6 +14102,8 @@
 				084D8A6020E0E7B700D43521 /* help_subcommand.h */,
 				084B277221049BC900BD0BE8 /* profile_subcommand.cpp */,
 				084B277321049BC900BD0BE8 /* profile_subcommand.h */,
+				087E3563214E0A8600A0769E /* test_bed_subcommand.cpp */,
+				087E3564214E0A8600A0769E /* test_bed_subcommand.h */,
 			);
 			path = subcommands;
 			sourceTree = "<group>";
@@ -38541,6 +38546,7 @@
 				08BA9862210BFBD100B461A2 /* executable_path.cpp in Sources */,
 				084D8A5E20E0E3E000D43521 /* subcommand_list.cpp in Sources */,
 				084D8A6220E0EA8100D43521 /* help_subcommand.cpp in Sources */,
+				087E3565214E0A8600A0769E /* test_bed_subcommand.cpp in Sources */,
 				08E7C0BF212718D700C7410A /* bed_file.cpp in Sources */,
 				089F3FEA20E68F5B00AE21E6 /* strict_cpp_re.inc in Sources */,
 				085D3A7C2121226E0042BAD3 /* bim_file.cpp in Sources */,
