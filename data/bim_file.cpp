@@ -9,6 +9,7 @@
 #include "data/bim_file.h"
 
 #include "data/text_file_reader.h"
+#include "util/allele.h"
 #include "util/log.h"
 #include "util/program_options.h"
 
@@ -31,8 +32,8 @@ static const BimFile* ReadBimFile() {
     variant.chromosome = reader.ReadInt(variant.name, "chromosome", ch);
     variant.dist = reader.ReadInt(variant.name, "dist", *iter++);
     variant.bp = reader.ReadInt(variant.name, "bp", *iter++);
-    variant.allele1 = reader.CheckAllele(variant.name, *iter++);
-    variant.allele2 = reader.CheckAllele(variant.name, *iter++);
+    variant.allele1 = CheckAllele(reader, variant.name, *iter++);
+    variant.allele2 = CheckAllele(reader, variant.name, *iter++);
     ret->variants.push_back(variant);
   }
   if (ret->variants.empty()) {

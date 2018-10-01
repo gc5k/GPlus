@@ -17,6 +17,7 @@
 #include "data/bim_file.h"
 #include "data/fam_file.h"
 #include "data/bed_file.h"
+#include "util/allele.h"
 
 using std::string;
 namespace po = boost::program_options;
@@ -73,14 +74,17 @@ void ProfileSubcommand::Execute() {
       float score_sum = 0.0f;
       for (auto variant_iter_of_bim = bim_file()->variants.cbegin();
            variant_iter_of_bim != bim_file()->variants.cend(); ++variant_iter_of_bim) {
-        auto variant_idx_in_scores = score_file()->GetVariantIndex(variant_iter_of_bim->name);
+        auto variant_idx_in_scores =
+        score_file()->GetVariantIndex(variant_iter_of_bim->name);
         auto score_of_ref = scores[variant_idx_in_scores];
         auto variant_index_in_bim = variant_iter_of_bim - bim_file()->variants.cbegin();
         auto sample_index = sample_iter - samples.cbegin();
         int genotype = bed->GetGenotype(variant_index_in_bim, sample_index);
         auto variant_in_scores = score_file()->variants[variant_idx_in_scores];
         bool allele1_is_ref;
-        if (boost::iequals(variant_iter_of_bim->allele1, variant_in_scores.ref)) {
+        if (IsMissingAllele(variant_in_scores.ref)) {
+          continue;
+        } else if (boost::iequals(variant_iter_of_bim->allele1, variant_in_scores.ref)) {
           allele1_is_ref = true;
         } else if (boost::iequals(variant_iter_of_bim->allele2, variant_in_scores.ref)) {
           allele1_is_ref = false;

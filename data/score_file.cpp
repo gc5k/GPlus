@@ -7,6 +7,7 @@
 
 #include "third_party/boost/format.hpp"
 #include "data/text_file_reader.h"
+#include "util/allele.h"
 #include "util/math.h"
 #include "util/program_options.h"
 
@@ -48,7 +49,7 @@ namespace gplus {
       // variant name and reference allele
       ScoreFile::Variant variant;
       variant.name = *col_iter++;
-      variant.ref = reader.CheckAllele(variant.name, *col_iter++);
+      variant.ref = CheckAllele(reader, variant.name, *col_iter++);
       ret->variants.push_back(variant);
       if (ret->variant_index_map.count(variant.name) > 0) {
         GPLUS_LOG << "Variant " << variant.name << " is duplicated in score file.";

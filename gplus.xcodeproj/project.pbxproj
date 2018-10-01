@@ -43,6 +43,7 @@
 		08EA71DA20F4310200B6781A /* libboost_log_setup.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA71D120F4310000B6781A /* libboost_log_setup.a */; };
 		08EA71DB20F4310200B6781A /* libboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA71D220F4310100B6781A /* libboost_filesystem.a */; };
 		08EA71DC20F4310200B6781A /* libboost_thread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA71D320F4310100B6781A /* libboost_thread.a */; };
+		08F25D85216116CE00D2E139 /* allele.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08F25D83216116CE00D2E139 /* allele.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -14046,6 +14047,9 @@
 		08EA71D120F4310000B6781A /* libboost_log_setup.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libboost_log_setup.a; sourceTree = "<group>"; };
 		08EA71D220F4310100B6781A /* libboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libboost_filesystem.a; sourceTree = "<group>"; };
 		08EA71D320F4310100B6781A /* libboost_thread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libboost_thread.a; sourceTree = "<group>"; };
+		08F25D83216116CE00D2E139 /* allele.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = allele.cpp; sourceTree = "<group>"; };
+		08F25D84216116CE00D2E139 /* allele.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = allele.h; sourceTree = "<group>"; };
+		08F25D862161A48D00D2E139 /* test.map */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = test.map; sourceTree = "<group>"; };
 		08F3BAF62130F38D00DEC93D /* math.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = math.h; sourceTree = "<group>"; };
 		08F4EE8A21294D3000A390E2 /* test.ped */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.ped; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -14089,6 +14093,7 @@
 				08412ABA2144B864007A43B0 /* scores_no_header.txt */,
 				085D3A7D212124D50042BAD3 /* test.bim */,
 				08308FF3212471DD0031E7C1 /* test.fam */,
+				08F25D862161A48D00D2E139 /* test.map */,
 				08F4EE8A21294D3000A390E2 /* test.ped */,
 				08B492602129B5B000C55BD3 /* test.bed */,
 			);
@@ -38475,6 +38480,8 @@
 		08BA985F210BFBD000B461A2 /* util */ = {
 			isa = PBXGroup;
 			children = (
+				08F25D83216116CE00D2E139 /* allele.cpp */,
+				08F25D84216116CE00D2E139 /* allele.h */,
 				08ABB6722110B9C100FB8878 /* program_options.cpp */,
 				08ABB6732110B9C100FB8878 /* program_options.h */,
 				08BA9860210BFBD100B461A2 /* executable_path.cpp */,
@@ -38553,6 +38560,7 @@
 				0868EF9120D7FA7500711306 /* gplus.cpp in Sources */,
 				084B277421049BC900BD0BE8 /* profile_subcommand.cpp in Sources */,
 				08308FF2212470270031E7C1 /* fam_file.cpp in Sources */,
+				08F25D85216116CE00D2E139 /* allele.cpp in Sources */,
 				083EB8362115876500EE4D01 /* log.cpp in Sources */,
 				089F3FE920E68F5B00AE21E6 /* cpp_re.inc in Sources */,
 				080B27B5211468AA0092EF6C /* text_file_reader.cpp in Sources */,

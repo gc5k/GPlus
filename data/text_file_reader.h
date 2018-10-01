@@ -29,6 +29,7 @@ class TextFileReader {
  public:
   explicit TextFileReader(const std::string& file_description,
                           const std::string& file_name);
+  const std::string& GetFileDescription() const { return file_desc_; }
   const std::vector<std::string>& GetColumns() const { return columns_; }
   bool ReadColumns(ColumnCountRequirement req, size_t col_cnt);
   bool ReadColumns() {
@@ -37,6 +38,7 @@ class TextFileReader {
   }
   
   int GetCurrentRowNumber() const { return row_no_; }
+  int GetLineNo() const { return line_no_; }
   
   std::string GetRowLocationForLog() const;
   bool IsMissingValue(const std::string& val) const {

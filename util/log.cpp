@@ -90,7 +90,7 @@ string PrintDurationSince(std::chrono::steady_clock::time_point tp) {
     }
     sstrm << seconds << (seconds == 1 ? " second" : " seconds");
   }
-  if (sstrm.tellg() == 0) {
+  if (sstrm.tellp() == 0) {
     sstrm << "less than 1 second";
   }
   return sstrm.str();
