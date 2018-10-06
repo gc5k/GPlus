@@ -82,7 +82,9 @@ void ProfileSubcommand::Execute() {
         int genotype = bed->GetGenotype(variant_index_in_bim, sample_index);
         auto variant_in_scores = score_file()->variants[variant_idx_in_scores];
         bool allele1_is_ref;
-        if (IsMissingAllele(variant_in_scores.ref)) {
+        if (IsMissingAllele(variant_in_scores.ref) ||
+            IsMissingAllele(variant_iter_of_bim->allele1) ||
+            IsMissingAllele(variant_iter_of_bim->allele2)) {
           continue;
         } else if (boost::iequals(variant_iter_of_bim->allele1, variant_in_scores.ref)) {
           allele1_is_ref = true;
