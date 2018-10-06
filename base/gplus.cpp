@@ -148,12 +148,15 @@ int main(int argc, const char* argv[]) {
     po::store(parsed_options, *gplus::prog_args());
     po::notify(*gplus::prog_args());
     
-    if (subcmd->GetName() != "help") {
+    if (strcmp(subcmd->GetName(), "help") != 0) {
       // Logging initialization should follow the parsing of command-line arguments
       // because --out option is needed to initialize logging.
       gplus::InitLogging();
     }
     subcmd->Execute();
+    if (strcmp(subcmd->GetName(), "help") != 0) {
+      GPLUS_LOG << "All done.";
+    }
   } catch (const std::exception& e) {
     GPLUS_LOG << e.what();
     exit(EXIT_FAILURE);
