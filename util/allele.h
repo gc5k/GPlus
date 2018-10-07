@@ -11,7 +11,7 @@
 
 #include <string>
 
-#include "data/text_file_reader.h"
+#include "util/text_file_reader.h"
 
 namespace gplus {
 

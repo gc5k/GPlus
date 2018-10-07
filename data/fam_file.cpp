@@ -8,7 +8,7 @@
 
 #include "data/fam_file.h"
 
-#include "data/text_file_reader.h"
+#include "util/text_file_reader.h"
 #include "util/program_options.h"
 
 using std::string;

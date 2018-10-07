@@ -6,7 +6,7 @@
 //  Copyright © 2018 Guobo Chen. All rights reserved.
 //
 
-#include "data/text_file_reader.h"
+#include "util/text_file_reader.h"
 
 #include <cctype>  // toupper
 #include <cstdlib>

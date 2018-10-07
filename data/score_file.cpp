@@ -6,7 +6,7 @@
 #include <iterator>  // back_inserter
 
 #include "third_party/boost/format.hpp"
-#include "data/text_file_reader.h"
+#include "util/text_file_reader.h"
 #include "util/allele.h"
 #include "util/math.h"
 #include "util/program_options.h"

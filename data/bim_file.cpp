@@ -8,7 +8,7 @@
 
 #include "data/bim_file.h"
 
-#include "data/text_file_reader.h"
+#include "util/text_file_reader.h"
 #include "util/allele.h"
 #include "util/log.h"
 #include "util/program_options.h"

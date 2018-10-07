@@ -36433,8 +36433,6 @@
 		08ABB6782110BA1600FB8878 /* data */ = {
 			isa = PBXGroup;
 			children = (
-				080B27B3211468AA0092EF6C /* text_file_reader.cpp */,
-				080B27B4211468AA0092EF6C /* text_file_reader.h */,
 				08ABB6792110BA1700FB8878 /* score_file.cpp */,
 				08ABB67A2110BA1700FB8878 /* score_file.h */,
 				085D3A7A2121226E0042BAD3 /* bim_file.cpp */,
@@ -38489,6 +38487,8 @@
 				083EB8342115876500EE4D01 /* log.cpp */,
 				083EB8352115876500EE4D01 /* log.h */,
 				08F3BAF62130F38D00DEC93D /* math.h */,
+				080B27B3211468AA0092EF6C /* text_file_reader.cpp */,
+				080B27B4211468AA0092EF6C /* text_file_reader.h */,
 			);
 			path = util;
 			sourceTree = "<group>";
