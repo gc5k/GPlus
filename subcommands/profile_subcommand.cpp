@@ -45,6 +45,15 @@ void ProfileSubcommand::Execute() {
   }
 
   auto bed = bed_file();
+  auto var_cnt = bed->variant_count;
+
+  // Map variant indexes between the bim file and the score file.
+  auto variants = bim_file()->variants;
+  int* var_idxs_scr = new int[var_cnt];
+  for (int var_idx_bim = 0; var_cnt > var_idx_bim; ++var_idx_bim) {
+    var_idxs_scr[var_idx_bim] =
+        score_file()->GetVariantIndex(variants[var_idx_bim].name);
+  }
 
   // Create output file.
   auto out_file_name = GetOptionValue<string>("out") + ".profile";
@@ -79,14 +88,12 @@ void ProfileSubcommand::Execute() {
       for (auto variant_iter_of_bim = bim_file()->variants.cbegin();
            variant_iter_of_bim != bim_file()->variants.cend();
            ++variant_iter_of_bim) {
-        auto variant_idx_in_scores =
-            score_file()->GetVariantIndex(variant_iter_of_bim->name);
-        auto score_of_ref = scores[variant_idx_in_scores];
-        auto variant_index_in_bim =
-            variant_iter_of_bim - bim_file()->variants.cbegin();
+        auto var_idx_bim = variant_iter_of_bim - bim_file()->variants.cbegin();
+        auto var_idx_scr = var_idxs_scr[var_idx_bim];
+        auto score_of_ref = scores[var_idx_scr];
         auto sample_index = sample_iter - samples.cbegin();
-        int genotype = bed->GetGenotype(variant_index_in_bim, sample_index);
-        auto variant_in_scores = score_file()->variants[variant_idx_in_scores];
+        int genotype = bed->GetGenotype(var_idx_bim, sample_index);
+        auto variant_in_scores = score_file()->variants[var_idx_scr];
         bool allele1_is_ref;
         if (IsMissingAllele(variant_in_scores.ref) ||
             IsMissingAllele(variant_iter_of_bim->allele1) ||
