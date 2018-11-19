@@ -22,7 +22,7 @@ void TestBedSubcommand::Execute() {
   auto bed = bed_file();
   // Just to prevent the reading invocation from
   // being eliminated by compiler optimization.
-  GPLUS_LOG << "Byte count per variant: " << bed->byte_count_per_variant;
+  GPLUS_LOG << "Byte count per row: " << bed->GetDim2ByteCount();
 }
 
 }  // namespace gplus

@@ -14,10 +14,6 @@ using std::string;
 
 namespace gplus {
   
-bool IsMissingAllele(const std::string& allele) {
-  return "0" == allele;
-}
-  
 string CheckAllele(const TextFileReader& reader,
                    const string& variant_name,
                    const string& allele) {

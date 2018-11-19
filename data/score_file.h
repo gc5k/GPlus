@@ -21,13 +21,13 @@ namespace gplus {
     };
     
     std::string file_name;
-    std::vector<std::string> score_names;
+    std::vector<std::string> trait_names;
     std::vector<Variant> variants;
     std::map<std::string, int> variant_index_map;
     
-    // dimension 1: score names
-    // dimension 2: score values of all the variants or ref alleles of a score name
-    std::vector<std::vector<float>> score_values;
+    // dimension 1: variants
+    // dimension 2: score values of all the score columns of a given variant
+    std::vector<std::vector<float>> score_rows;
 
     int GetVariantIndex(const std::string& name) const {
       auto iter = variant_index_map.find(name);

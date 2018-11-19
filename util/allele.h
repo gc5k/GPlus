@@ -15,7 +15,7 @@
 
 namespace gplus {
 
-bool IsMissingAllele(const std::string& allele);
+inline bool IsMissingAllele(const std::string& allele) { return "0" == allele; }
   
 std::string CheckAllele(const TextFileReader& reader,
                         const std::string& variant_name,

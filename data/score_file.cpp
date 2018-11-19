@@ -29,19 +29,22 @@ namespace gplus {
     
     // score names (titles)
     reader.ReadColumns(kColumnCountMinimal, 3);
-    ret->score_names.reserve(columns.size() - 2);
+    auto score_col_cnt = columns.size() - 2;
+    ret->trait_names.reserve(score_col_cnt);
     const bool no_score_headr = prog_args()->count("no-score-header") > 0;
     bool waiting_to_parse_first_row = no_score_headr;
     if (no_score_headr) {
       for (int i = 2; i < columns.size(); ++i) {
-        ret->score_names.push_back(boost::str(boost::format("S%1%") % (i - 1)));
+        ret->trait_names.push_back(boost::str(boost::format("S%1%") % (i - 1)));
       }
     } else {
-      std::copy(columns.cbegin() + 2, columns.cend(), std::back_inserter(ret->score_names));
+      std::copy(columns.cbegin() + 2, columns.cend(), std::back_inserter(ret->trait_names));
     }
     
     // variants and score values
-    ret->score_values.resize(ret->score_names.size());
+    auto& scores = ret->score_rows;
+    vector<float> scores_of_var;
+    scores_of_var.reserve(score_col_cnt);
     const int variant_index_offset = no_score_headr ? 1 : 2;
     while (waiting_to_parse_first_row || reader.ReadColumns()) {
       auto col_iter = columns.cbegin();
@@ -58,18 +61,18 @@ namespace gplus {
       ret->variant_index_map[variant.name] = reader.GetCurrentRowNumber() - variant_index_offset;
       
       // score values
-      auto score_vectors_iter = ret->score_values.begin();
+      scores_of_var.clear();
       while (col_iter != columns.cend()) {
         const string& col_val = *col_iter++;
         if (reader.IsMissingValue(col_val)) {
-          (score_vectors_iter++)->push_back(0.0f);
+          scores_of_var.push_back(0.0f);
         } else {
           try {
             float score_value = stof(col_val);
             if (equals(score_value, missing_score)) {
               score_value = 0.0f;
             }
-            (score_vectors_iter++)->push_back(score_value);
+            scores_of_var.push_back(score_value);
           } catch (std::invalid_argument) {
             GPLUS_LOG
             << "Variant " << variant.name << " has an invalid score value '"
@@ -83,6 +86,7 @@ namespace gplus {
           }
         }
       }
+      scores.push_back(scores_of_var);
       waiting_to_parse_first_row = false;
     }
     if (ret->variants.empty()) {

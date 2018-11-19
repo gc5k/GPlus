@@ -13,32 +13,49 @@
 
 namespace gplus {
 
-  struct BedFile {
-    BedFile(int variant_count, int sample_count);
+class BedFile {
+ public:
+  static const BedFile* ReadBedFile();
+  const char* GetGenotypes() const { return genotypes_; }
+  char GetByte(size_t byte_idx) const { return genotypes_[byte_idx]; }
+  /*
+  int GetGenotype(std::size_t dim1_index,
+                  std::size_t dim2_genotype_index) const {
+    auto byte_index = dim1_index * dim2_byte_cnt + (dim2_genotype_index >> 2);
+    char byte = genotypes_[byte_index];
+    int bit_index = static_cast<int>((dim2_genotype_index & 0x3) << 1);
+    int genotype = (byte >> bit_index) & 0x3;
+    return genotype;
+  }
+   */
 
-    static int GetByteCount(int genotype_count) {
-      return (genotype_count + 3) / 4;  // round up
-    }
-    
-    int GetGenotype(std::size_t variant_index, std::size_t sample_index) const {
-      auto genotypes_of_variant = genotypes[variant_index];
-      auto byte_index = sample_index >> 2;
-      char byte = genotypes_of_variant[byte_index];
-      int bit_index = static_cast<int>((sample_index & 0x3) << 1);
-      int genotype = (byte >> bit_index) & 0x3;
-      return genotype;
-    }
-
-    int variant_count;
-    int sample_count;
-    int byte_count_per_variant;
-    
-    // dimension 1: variants
-    // dimension 2: genotypes of all the samples of a variant
-    char** genotypes;
-  };
+  size_t GetDim1Size() const { return dim1_size_; }
+  size_t GetDim2GenotypeCount() const { return dim2_genotype_cnt_; }
+  size_t GetDim2ByteCount() const { return GetByteCount(dim2_genotype_cnt_); }
+  size_t GetTotalByteCount() const { return dim1_size_ * GetDim2ByteCount(); }
   
-  const BedFile* bed_file();
+  bool IsVariantMajor() const { return is_variant_major_; }
+
+ private:
+  static size_t GetByteCount(size_t genotype_count) {
+    return (genotype_count + 3) >> 2;  // round up
+  }
+  
+  bool is_variant_major_;
+  
+  // variant major
+  // dimension 1: variants
+  // dimension 2: genotypes of all the samples of a variant
+  //
+  // sample major
+  // dimension 1: samples
+  // dimension 2: genotypes of all the variant of a sample
+  char* genotypes_;
+  size_t dim1_size_;
+  size_t dim2_genotype_cnt_;
+};
+
+const BedFile* bed_file();
 
 }  // namespace gplus
 

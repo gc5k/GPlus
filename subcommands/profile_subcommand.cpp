@@ -20,6 +20,7 @@
 #include "util/allele.h"
 
 using std::string;
+using std::vector;
 namespace po = boost::program_options;
 
 namespace gplus {
@@ -36,23 +37,163 @@ void ProfileSubcommand::AddOptionsDesc(OptionsDesc* opts_desc) const {
   AddOutOption(opts_desc);
 }
 
+// temp variables
+static const ScoreFile* scr_file;
+static size_t trait_cnt;
+static size_t var_cnt;
+static const vector<BimFile::Variant>* vars_in_bim;
+static int* var_idxs_in_scr;
+static const vector<ScoreFile::Variant>* vars_in_scr;
+static const char* genotype_ptr;
+static size_t dim2_genotype_cnt;
+static size_t dim2_byte_cnt;
+static vector<vector<float>>* score_sums;
+static size_t dim2_genotype_idx;
+static vector<size_t>* allele_cnts;
+
+namespace variant_major {
+
+static inline void DoForRefIsAllele1(const vector<float>& scrs_of_a_var) {
+  while (dim2_genotype_idx < dim2_genotype_cnt) {
+    char byte = *genotype_ptr++;
+    for (int bit_idx = 0;
+         bit_idx < 8 && dim2_genotype_idx < dim2_genotype_cnt;
+         bit_idx += 2, ++dim2_genotype_idx) {
+      auto& scr_sums_of_a_sample = score_sums->at(dim2_genotype_idx);
+      int genotype = (byte >> bit_idx) & 0b11;
+      switch (genotype) {
+        case 0b00:  // Homozygous for first allele in .bim file
+          for (int trait_idx = 0; trait_idx < trait_cnt; ++trait_idx) {
+            auto score = scrs_of_a_var[trait_idx];
+            scr_sums_of_a_sample[trait_idx] += score + score;
+          }
+          break;
+        case 0b01:  // Missing genotype
+          allele_cnts->at(dim2_genotype_idx) -= 2;
+          break;
+        case 0b10:  // Heterozygous
+          for (int trait_idx = 0; trait_idx < trait_cnt; ++trait_idx) {
+            scr_sums_of_a_sample[trait_idx] += scrs_of_a_var[trait_idx];
+          }
+          break;
+        case 0b11:  // Homozygous for second allele in .bim file
+          break;
+        default:
+          assert(false);
+      }
+    }
+  }
+}
+
+static void DoForRefIsAllele2(const vector<float>& scrs_of_a_var) {
+  while (dim2_genotype_idx < dim2_genotype_cnt) {
+    char byte = *genotype_ptr++;
+    for (int bit_idx = 0;
+         bit_idx < 8 && dim2_genotype_idx < dim2_genotype_cnt;
+         bit_idx += 2, ++dim2_genotype_idx) {
+      auto& scr_sums_of_a_sample = score_sums->at(dim2_genotype_idx);
+      int genotype = (byte >> bit_idx) & 0b11;
+      switch (genotype) {
+        case 0b00:  // Homozygous for first allele in .bim file
+          break;
+        case 0b01:  // Missing genotype
+          allele_cnts->at(dim2_genotype_idx) -= 2;
+          break;
+        case 0b10:  // Heterozygous
+          for (int trait_idx = 0; trait_idx < trait_cnt; ++trait_idx) {
+            scr_sums_of_a_sample[trait_idx] += scrs_of_a_var[trait_idx];
+          }
+          break;
+        case 0b11:  // Homozygous for second allele in .bim file
+          for (int trait_idx = 0; trait_idx < trait_cnt; ++trait_idx) {
+            auto score = scrs_of_a_var[trait_idx];
+            scr_sums_of_a_sample[trait_idx] += score + score;
+          }
+          break;
+        default:
+          assert(false);
+      }
+    }
+  }
+}
+
+static void Execute() {
+  for (size_t var_idx_in_bim = 0; var_idx_in_bim < var_cnt; ++var_idx_in_bim) {
+    auto& var_in_bim = vars_in_bim->at(var_idx_in_bim);
+    auto& var_idx_in_scr = var_idxs_in_scr[var_idx_in_bim];
+    auto ref = vars_in_scr->at(var_idx_in_scr).ref;
+    if (IsMissingAllele(ref) ||
+        IsMissingAllele(var_in_bim.allele1) ||
+        IsMissingAllele(var_in_bim.allele2)) {
+      genotype_ptr += dim2_byte_cnt;
+      continue;
+    }
+    
+    const vector<float>& scrs_of_a_var = scr_file->score_rows[var_idx_in_scr];
+    dim2_genotype_idx = 0;
+    
+    if (boost::iequals(var_in_bim.allele1, ref)) {
+      DoForRefIsAllele1(scrs_of_a_var);
+    } else if (boost::iequals(var_in_bim.allele2, ref)) {
+      DoForRefIsAllele2(scrs_of_a_var);
+    } else {
+      GPLUS_LOG
+      << "The reference allele of variant "
+      << var_in_bim.name << " is " << ref
+      << " in score file, but the alleles of the variant in bim file is "
+      << var_in_bim.allele1 << " and "
+      << var_in_bim.allele2 << ". It doesn't match.";
+      exit(EXIT_FAILURE);
+    }
+  }
+}
+
+}  // namespace variant_major
+
 void ProfileSubcommand::Execute() {
-  if (score_file()->variants.size() != bim_file()->variants.size()) {
+  scr_file = score_file();
+  if (scr_file->variants.size() != bim_file()->variants.size()) {
     GPLUS_LOG << "The score file contains " << score_file()->variants.size()
               << " variant(s), but the bim file contains "
               << bim_file()->variants.size() << " variant(s).";
     exit(EXIT_FAILURE);
   }
 
-  auto bed = bed_file();
-  auto var_cnt = bed->variant_count;
-
   // Map variant indexes between the bim file and the score file.
-  auto variants = bim_file()->variants;
-  int* var_idxs_scr = new int[var_cnt];
+  vars_in_bim = &bim_file()->variants;
+  var_cnt = vars_in_bim->size();
+  var_idxs_in_scr = new int[var_cnt];
   for (int var_idx_bim = 0; var_cnt > var_idx_bim; ++var_idx_bim) {
-    var_idxs_scr[var_idx_bim] =
-        score_file()->GetVariantIndex(variants[var_idx_bim].name);
+    var_idxs_in_scr[var_idx_bim] =
+        score_file()->GetVariantIndex(vars_in_bim->at(var_idx_bim).name);
+  }
+  
+  // Construct the container of output result.
+  auto fam = fam_file();
+  auto sample_cnt = fam->samples.size();
+  score_sums = new vector<vector<float>>(sample_cnt);
+  trait_cnt = scr_file->trait_names.size();
+  for (auto& score_sums_of_a_sample : *score_sums) {
+    score_sums_of_a_sample.resize(trait_cnt);
+  }
+  
+  // Initialize temporary variables.
+  auto bed = bed_file();
+  genotype_ptr = bed->GetGenotypes();
+  dim2_genotype_cnt = bed->GetDim2GenotypeCount();
+  dim2_byte_cnt = bed->GetDim2ByteCount();
+  vars_in_scr = &scr_file->variants;
+  allele_cnts = new vector<size_t>(sample_cnt, var_cnt << 1);
+  
+  GPLUS_LOG << "Profiling scores.";
+  auto timer_start = GetNow();
+
+  // Sum up scores.
+  if (bed->IsVariantMajor()) {
+    variant_major::Execute();
+  } else {
+    GPLUS_LOG << "Profile is not implemented for sample major bed yet.";
+    exit(1);
   }
 
   // Create output file.
@@ -65,86 +206,39 @@ void ProfileSubcommand::Execute() {
 
   // Print headers.
   out_file << "FID\tIID";
-  auto& score_names = score_file()->score_names;
-  for (auto score_name_iter = score_names.cbegin();
-       score_name_iter != score_names.cend(); ++score_name_iter) {
-    out_file << "\tSCORE." << *score_name_iter;
+  auto& score_names = score_file()->trait_names;
+  for (auto score_names_iter = score_names.cbegin();
+       score_names_iter != score_names.cend(); ++score_names_iter) {
+    out_file << "\tSCORE." << *score_names_iter;
   }
   out_file << std::endl;
 
   const bool is_weighted = 0 == prog_args()->count("no-weight");
 
-  // Calculate and print scores of each sample.
-  auto& samples = fam_file()->samples;
-  for (auto sample_iter = samples.cbegin(); sample_iter != samples.cend();
-       ++sample_iter) {
-    out_file << sample_iter->fam_id << "\t" << sample_iter->iid;
-    // Sum up scores of all the variants for each score name.
-    for (int score_name_idx = 0; score_name_idx < score_names.size();
-         ++score_name_idx) {
-      auto& scores = score_file()->score_values[score_name_idx];
-      float score_sum = 0.0f;
-      int allele_count = bed_file()->variant_count << 1;
-      for (auto variant_iter_of_bim = bim_file()->variants.cbegin();
-           variant_iter_of_bim != bim_file()->variants.cend();
-           ++variant_iter_of_bim) {
-        auto var_idx_bim = variant_iter_of_bim - bim_file()->variants.cbegin();
-        auto var_idx_scr = var_idxs_scr[var_idx_bim];
-        auto score_of_ref = scores[var_idx_scr];
-        auto sample_index = sample_iter - samples.cbegin();
-        int genotype = bed->GetGenotype(var_idx_bim, sample_index);
-        auto variant_in_scores = score_file()->variants[var_idx_scr];
-        bool allele1_is_ref;
-        if (IsMissingAllele(variant_in_scores.ref) ||
-            IsMissingAllele(variant_iter_of_bim->allele1) ||
-            IsMissingAllele(variant_iter_of_bim->allele2)) {
-          continue;
-        } else if (boost::iequals(variant_iter_of_bim->allele1,
-                                  variant_in_scores.ref)) {
-          allele1_is_ref = true;
-        } else if (boost::iequals(variant_iter_of_bim->allele2,
-                                  variant_in_scores.ref)) {
-          allele1_is_ref = false;
-        } else {
-          GPLUS_LOG << "The reference allele of variant "
-                    << variant_iter_of_bim->name << " is "
-                    << variant_in_scores.ref
-                    << " in score file, but the alleles of the variant in bim "
-                       "file is "
-                    << variant_iter_of_bim->allele1 << " and "
-                    << variant_iter_of_bim->allele2 << ". It doesn't match.";
-          exit(EXIT_FAILURE);
-        }
-        switch (genotype) {
-          case 0b00:  // Homozygous for first allele in .bim file
-            score_sum += allele1_is_ref ? score_of_ref + score_of_ref : 0;
-            break;
-          case 0b01:  // Missing genotype
-            allele_count -= 2;
-            break;
-          case 0b10:  // Heterozygous
-            score_sum += score_of_ref;
-            break;
-          case 0b11:  // Homozygous for second allele in .bim file
-            score_sum += allele1_is_ref ? 0 : score_of_ref + score_of_ref;
-            break;
-          default:
-            assert(false);
-        }
-      }
-
+  // Print score results of each sample.
+  const auto& samples = fam->samples;
+  for (size_t sample_idx = 0; sample_idx < sample_cnt; ++sample_idx) {
+    const auto& sample = samples[sample_idx];
+    out_file << sample.fam_id << "\t" << sample.iid;
+    const auto& scr_sums_of_a_sample = score_sums->at(sample_idx);
+    float allele_cnt = allele_cnts->at(sample_idx);
+    for (auto scr_sums_iter = scr_sums_of_a_sample.cbegin();
+         scr_sums_iter != scr_sums_of_a_sample.cend(); ++scr_sums_iter) {
       // Print score to result file.
-      float out_score = score_sum;
+      float scr_result = *scr_sums_iter;
       if (is_weighted) {
-        if (0 != allele_count)
-          out_score /= allele_count;
+        if (0 != allele_cnt)
+          scr_result /= allele_cnt;
         else
-          out_score = 0.0f;
+          scr_result = 0.0f;
       }
-      out_file << "\t" << out_score;
+      out_file << "\t" << scr_result;
     }
     out_file << std::endl;
   }
+
+  GPLUS_LOG << "Profiling complete. It took "
+            << PrintDurationSince(timer_start) << " to profile scores.";
 }
 
 }  // namespace gplus
