@@ -38,7 +38,8 @@ namespace gplus {
         ret->trait_names.push_back(boost::str(boost::format("S%1%") % (i - 1)));
       }
     } else {
-      std::copy(columns.cbegin() + 2, columns.cend(), std::back_inserter(ret->trait_names));
+      std::copy(columns.cbegin() + 2, columns.cend(),
+                std::back_inserter(ret->trait_names));
     }
     
     // variants and score values
@@ -58,7 +59,8 @@ namespace gplus {
         GPLUS_LOG << "Variant " << variant.name << " is duplicated in score file.";
         exit(EXIT_FAILURE);
       }
-      ret->variant_index_map[variant.name] = reader.GetCurrentRowNumber() - variant_index_offset;
+      ret->variant_index_map[variant.name] =
+          reader.GetCurrentRowNumber() - variant_index_offset;
       
       // score values
       scores_of_var.clear();
@@ -95,6 +97,9 @@ namespace gplus {
       << "' contains just a title line without any score data.";
       exit(EXIT_FAILURE);
     }
+    GPLUS_LOG << "Read " << ret->variants.size()
+              << (ret->variants.size() == 1 ? " variant" : " variants")
+              << " from the score file.";
     return ret;
   }
 

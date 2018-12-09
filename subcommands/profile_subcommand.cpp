@@ -120,11 +120,17 @@ static void DoForRefIsAllele2(const vector<float>& scrs_of_a_var) {
 static void Execute() {
   for (size_t var_idx_in_bim = 0; var_idx_in_bim < var_cnt; ++var_idx_in_bim) {
     auto& var_in_bim = vars_in_bim->at(var_idx_in_bim);
-    auto& var_idx_in_scr = var_idxs_in_scr[var_idx_in_bim];
+    if (IsMissingAllele(var_in_bim.allele1) || IsMissingAllele(var_in_bim.allele2)) {
+      genotype_ptr += dim2_byte_cnt;
+      continue;
+    }
+    int var_idx_in_scr = var_idxs_in_scr[var_idx_in_bim];
+    if (-1 == var_idx_in_scr) {
+      genotype_ptr += dim2_byte_cnt;
+      continue;
+    }
     auto ref = vars_in_scr->at(var_idx_in_scr).ref;
-    if (IsMissingAllele(ref) ||
-        IsMissingAllele(var_in_bim.allele1) ||
-        IsMissingAllele(var_in_bim.allele2)) {
+    if (IsMissingAllele(ref)) {
       genotype_ptr += dim2_byte_cnt;
       continue;
     }
@@ -150,24 +156,36 @@ static void Execute() {
 
 }  // namespace variant_major
 
+// Map variant indexes between the bim file and the score file.
+static void MapBimFileAndScoreFile() {
+  var_idxs_in_scr = new int[var_cnt];
+  int match_cnt = 0;
+  for (int var_idx_bim = 0; var_cnt > var_idx_bim; ++var_idx_bim) {
+    int idx = scr_file->GetVariantIndex(vars_in_bim->at(var_idx_bim).name);
+    var_idxs_in_scr[var_idx_bim] = idx;
+    if (-1 != idx)
+      ++match_cnt;
+  }
+  if (bim_file()->variants.size() == match_cnt &&
+      scr_file->variants.size() == match_cnt) {
+    GPLUS_LOG << "The bim file and the score file totally match.";
+  } else if (0 == match_cnt) {
+    GPLUS_LOG << "The intersection between the bim file and the score file is empty. "
+              << "No further analysis needs to be performed.";
+    exit(EXIT_SUCCESS);
+  } else {
+    GPLUS_LOG << "The intersection between the bim file and the score file contains "
+              << match_cnt << (1 == match_cnt ? " variant." : " variants");
+  }
+}
+
 void ProfileSubcommand::Execute() {
   scr_file = score_file();
-  if (scr_file->variants.size() != bim_file()->variants.size()) {
-    GPLUS_LOG << "The score file contains " << score_file()->variants.size()
-              << " variant(s), but the bim file contains "
-              << bim_file()->variants.size() << " variant(s).";
-    exit(EXIT_FAILURE);
-  }
-
-  // Map variant indexes between the bim file and the score file.
   vars_in_bim = &bim_file()->variants;
   var_cnt = vars_in_bim->size();
-  var_idxs_in_scr = new int[var_cnt];
-  for (int var_idx_bim = 0; var_cnt > var_idx_bim; ++var_idx_bim) {
-    var_idxs_in_scr[var_idx_bim] =
-        score_file()->GetVariantIndex(vars_in_bim->at(var_idx_bim).name);
-  }
   
+  MapBimFileAndScoreFile();
+
   // Construct the container of output result.
   auto fam = fam_file();
   auto sample_cnt = fam->samples.size();

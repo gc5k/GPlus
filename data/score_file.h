@@ -31,11 +31,7 @@ namespace gplus {
 
     int GetVariantIndex(const std::string& name) const {
       auto iter = variant_index_map.find(name);
-      if (variant_index_map.end() == iter) {
-        GPLUS_LOG << "Cannot find variant " << name << " in score file.";
-        exit(EXIT_FAILURE);
-      }
-      return iter->second;
+      return variant_index_map.end() == iter ? -1 : iter->second;
     }
   };
   
