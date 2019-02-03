@@ -3,7 +3,29 @@ GEAR improved
 
 ## Developer Note
 
-To build on Windows, you need to download and build the Program Options library and Log library of [Boost 1.67.0](https://dl.bintray.com/boostorg/release/1.67.0/source/) in advanced. Either copy the Boost libraries to the `lib/win` subdirectory of the gplus project or define the `BOOST_1_67_0_LIB_DIR` environment variable pointing to the directory path of the Boost libraries built on your machine (such as D:\boost_1_67_0\stage\lib).
+### Prerequisite Libraries
+
+On Linux and Windows, you need to download and build the Program Options library and Log library of [Boost 1.67.0](https://dl.bintray.com/boostorg/release/1.67.0/source/) in advanced. 
+
+On Windows, either copy the Boost libraries to the `lib/win` subdirectory of the gplus project or define the `BOOST_1_67_0_LIB_DIR` environment variable pointing to the directory path of the Boost libraries built on your machine (such as D:\boost_1_67_0\stage\lib).
+
+On Mac OS X, you don't have to worry about this as we have already shipped with the Mac OS X version of the prebuilt boost libraries. Just open Xcode and build the gplus product.
+
+### Build on Linux
+
+You need to install [CMake](https://cmake.org/) to build gplus on Linux. Recall that Boost Progrm Options and Logs (version 1.67.0) are also required.
+
+After CMake is installed,
+
+```bash
+cd /path/to/gplus
+mkdir build
+cd build
+cmake ..
+make
+```
+
+The gplus executable will be built in the `build` subdirectory of gplus.
 
 ### Coding Style
 

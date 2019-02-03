@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.13)
+target_sources(gplus PRIVATE allele.cpp)
+target_sources(gplus PRIVATE executable_path.cpp)
+target_sources(gplus PRIVATE program_options.cpp)
+target_sources(gplus PRIVATE log.cpp)
+target_sources(gplus PRIVATE text_file_reader.cpp)

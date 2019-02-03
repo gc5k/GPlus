@@ -11,3 +11,4 @@ lib/win/libboost*
 *.profile
 gplusT/*
 .DS_Store
+build

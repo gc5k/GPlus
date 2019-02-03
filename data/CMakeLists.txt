@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.13)
+target_sources(gplus PRIVATE score_file.cpp)
+target_sources(gplus PRIVATE bim_file.cpp)
+target_sources(gplus PRIVATE fam_file.cpp)
+target_sources(gplus PRIVATE bed_file.cpp)
